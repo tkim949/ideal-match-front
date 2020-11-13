@@ -3,7 +3,7 @@ import {
     SET_USER,
     SET_AUTHENTICATED,
     SET_UNAUTHENTICATED,
-    //LOADING_USER,
+    LOADING_USER,
     //LIKE_SCREAM,
     //UNLIKE_SCREAM,
     //MARK_NOTIFICATIONS_READ
@@ -30,14 +30,14 @@ import {
       case SET_USER:
         return {
           authenticated: true,
-         // loading: false,
+          loading: false,
           ...action.payload
         };
-     /*case LOADING_USER:
+     case LOADING_USER:
         return {
           ...state,
           loading: true
-        };*/
+        };
     /*  case LIKE_SCREAM:
         return {
           ...state,

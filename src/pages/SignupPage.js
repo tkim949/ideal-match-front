@@ -25,7 +25,8 @@ import { signupUser } from '../redux/actions/userActions';
 
 const styles = {
     signupForm: {
-        textAlign: 'center'
+        textAlign: 'center',
+        //width: '600px'
     },
     icon: {
         margin: '20px auto 20px auto',

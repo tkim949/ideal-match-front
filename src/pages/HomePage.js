@@ -6,6 +6,7 @@ import { Grid } from '@material-ui/core';
 import axios from 'axios';
 
 import Profile from '../components/Profile';
+import Detail from '../components/Detail';
 
 class HomePage extends Component {
 
@@ -57,7 +58,7 @@ class HomePage extends Component {
                     {recentProf}
                 </Grid>
                 <Grid item sm={4} xs={12}>
-                    <p>Detail</p>
+                    <Detail/>
                </Grid>
             </Grid>
         )

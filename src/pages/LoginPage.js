@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';//errorchecking
 import { Grid } from '@material-ui/core';
+
 //https://www.flaticon.com/free-icon/balloons_609624?term=heart&page=1&position=68
 //https://pixabay.com/vectors/penguins-art-amorous-love-tux-157418/
 import AppIcon from '../images/penguins.png';
@@ -24,7 +25,9 @@ import { loginUser } from '../redux/actions/userActions';
 
 const styles = {
     loginForm: {
-        textAlign: 'center'
+        textAlign: 'center',
+        //width: '50%'
+        
     },
     icon: {
         margin: '20px auto 20px auto',

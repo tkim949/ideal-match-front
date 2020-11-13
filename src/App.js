@@ -26,8 +26,10 @@ import NotFoundPage from './pages/NotFoundPage';
 //https://github.com/zalmoxisus/redux-devtools-extension
 import { Provider } from 'react-redux';
 import store from './redux/store';
-//import { SET_AUTHENTICATED } from './redux/types';
-//import { logoutUser, getUserData } from './redux/actions/userActions';
+//in order to replace "autenticated"
+import { SET_AUTHENTICATED } from './redux/types';
+import { logoutUser, getUserData } from './redux/actions/userActions';
+
 import axios from 'axios';
 
 axios.defaults.baseURL="https://us-central1-i-match-7689e.cloudfunctions.net/api";
@@ -52,7 +54,7 @@ const theme = createMuiTheme({
   }
 });
 
-let authenticated;
+////*let authenticated;
 //npm install --save jwt-decode
 const token = localStorage.FBToken;
 
@@ -63,14 +65,14 @@ if(token) {
   const decodedToken = jwt_decode(token);
   console.log(decodedToken);
   if(decodedToken.exp * 1000 < Date.now()) {
-    //store.dispatch(logoutUser())
+    store.dispatch(logoutUser())
     window.location.href = '/login' //this part can make an error!
-    authenticated = false;
+    ////*authenticated = false;
   } else {
-    authenticated = true;
-    //store.dispatch({ type: SET_AUTHENTICATED });
-    //axios.defaults.headers.common['Authoization'] = token;
-    //store.dispatch(getUserData());
+    ////*authenticated = true;
+    store.dispatch({ type: SET_AUTHENTICATED });
+    axios.defaults.headers.common['Authoization'] = token;
+    store.dispatch(getUserData());
   }
 }
 
@@ -86,10 +88,10 @@ class App extends Component {
                 <div className="container">
                   <Switch>
                     <Route exact path="/" component={HomePage}/>
-                    <AuthRoute exact path="/login" component={LoginPage}  authenticated={authenticated}/>
-                    <AuthRoute exact path="/signup" component={SignupPage} authenticated={authenticated}/>
-                    <AuthRoute exact path="/maybe" component={MaybePage} authenticated={authenticated}/>
-                    <AuthRoute exact path="/match" component={MatchPage} authenticated={authenticated}/>
+                    <AuthRoute exact path="/login" component={LoginPage}  />
+                    <AuthRoute exact path="/signup" component={SignupPage} />
+                    <AuthRoute exact path="/maybe" component={MaybePage} />
+                    <AuthRoute exact path="/match" component={MatchPage} />
                     <Route component={NotFoundPage} />
                   </Switch>
                 </div>
@@ -101,5 +103,5 @@ class App extends Component {
   }
 
 }
-
+//<AuthRoute exact path="/login" component={LoginPage}  authenticated={authenticated}/>
 export default App;

@@ -87,6 +87,26 @@ export const getUserData = () => (dispatch) => {
         });
   };
 
+  export const uploadImage = (formData) => (dispatch) => {
+    dispatch({ type: LOADING_USER });
+    axios
+      .post('/profile/image', formData)
+      .then(() => {
+        dispatch(getUserData());
+      })
+      .catch((err) => console.log(err));
+  };
+
+  export const editUserDetails = (profileDetails) => (dispatch) => {
+    dispatch({ type: LOADING_USER });
+    axios
+      .post('/user', profileDetails)
+      .then(() => {
+        dispatch(getUserData());
+      })
+      .catch((err) => console.log(err));
+  };
+
   /*
   
   export const loginUser = (userData, history) => (dispatch) => {
