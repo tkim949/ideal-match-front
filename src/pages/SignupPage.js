@@ -10,12 +10,18 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 //https://material-ui.com/api/text-field/
 import Button from '@material-ui/core/Button';
-//import { loginUser } from '../redux/actions/userActions';
+
 //https://material-ui.com/components/buttons/
 //https://material-ui.com/components/progress/
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-import axios from 'axios';
+//import axios from 'axios';
+
+//for the reliable state, redux
+//npm install --save redux react-redux redux-thunk 
+//import { reduxForm } from 'redux-form'; //npm install --save redux-form
+import { connect } from 'react-redux';
+import { signupUser } from '../redux/actions/userActions';
 
 const styles = {
     signupForm: {
@@ -49,29 +55,40 @@ const styles = {
 
 class SignupPage extends Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             email: '',
             password: '',
             confirmPassword:'',
             handle:'',
-            loading: false,
+            //loading: false,
             errors: {} //for the potential errors on the form
         }
     }
-
+    
+    componentDidUpdate(prevProps) {
+        if (prevProps.UI.errors !== this.props.UI.errors) { // <-- Only update error state if value different
+            this.setState({
+              errors: this.props.UI.errors,
+            });
+          }
+    }
+  
     handleSubmit = (event) => {
         event.preventDefault(); //
-        this.setState({
+         this.setState({
             loading: true
-        });
+         });
         const newUserData = {
             email: this.state.email,
             password: this.state.password,
             confirmPassword: this.state.confirmPassword,
             handle: this.state.handle
         };
+        //[error] Uncaught TypeError: this.props.signupUser is not a function
+        this.props.signupUser(newUserData, this.props.history);
+        /*
         const optionAX = {
             url: '/signup',
             method: 'POST',
@@ -91,7 +108,7 @@ class SignupPage extends Component {
                     errors: err.response.data,
                     loading: false
                 })
-            })
+            })*/
             //https://stackoverflow.com/questions/38423108/using-localstorage-with-react
             //https://blog.logrocket.com/axios-or-fetch-api/
             //https://stackoverflow.com/questions/42701129/how-to-push-to-history-in-react-router-v4?rq=1
@@ -105,8 +122,8 @@ class SignupPage extends Component {
 
    }
     render() {
-        const { classes } = this.props;
-        const { errors, loading } = this.state;
+        const { classes, UI: { loading } } = this.props;
+        const { errors } = this.state;
         return (
             <Grid container className={classes.signupForm}>
                 <Grid item sm></Grid>
@@ -169,9 +186,9 @@ class SignupPage extends Component {
                             onChange={this.handleChange} 
                             fullWidth>
                         </TextField>
-                            {errors.general && (
+                            {errors.errorMsg && (
                                 <Typography variant="body2" className={classes.errorMsg}>
-                                    {errors.email}
+                                    {errors.errorMsg}
                                 </Typography>
                             )}
                         <Button 
@@ -198,7 +215,26 @@ class SignupPage extends Component {
 }
 
 SignupPage.propTypes = {
-    classes: PropTypes.object.isRequired
+    classes: PropTypes.object.isRequired,
+    user: PropTypes.object.isRequired,
+    UI: PropTypes.object.isRequired,
+    signupUser: PropTypes.func.isRequired
 }
 
-export default withStyles(styles)(SignupPage)
+const mapStateToProps = (state) => {
+    return {user: state.user, UI: state.UI};
+};
+export default connect(mapStateToProps, { signupUser })(withStyles(styles)(SignupPage))
+//https://stackoverflow.com/questions/52590903/mapstatetoprops-in-connect-must-return-a-plain-object-instead-received-unde
+//mapDispatchToProps() in Connect(WithStyles(SignupPage)) must return a plain object. Instead received undefined. 
+//export default withStyles(styles)(SignupPage)
+//https://stackoverflow.com/questions/41138158/uncaught-typeerror-this-props-signinuser-is-not-a-function
+//export default reduxForm({form: 'signup'}) (connect(mapStateToProps, signupUser)(withStyles(styles)(SignupPage)));
+//module not found redux-form, npm install react-redux --save
+/*
+Signin = connect(mapStateToProps, actions)(Signin);
+Signin = reduxForm({
+ form: 'signin'
+})(Signin);
+export default Signin;
+*/

@@ -15,7 +15,12 @@ import Button from '@material-ui/core/Button';
 //https://material-ui.com/components/progress/
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-import axios from 'axios';
+//import axios from 'axios';
+
+//for the reliable state, redux
+//npm install --save redux react-redux redux-thunk 
+import { connect } from 'react-redux';
+import { loginUser } from '../redux/actions/userActions';
 
 const styles = {
     loginForm: {
@@ -54,21 +59,36 @@ class LoginPage extends Component {
         this.state = {
             email: '',
             password: '',
-            loading: false,
+            //loading: false,
             errors: {} //for the potential errors on the form
         }
+    }
+    //because it doesn't show the error message after redux, before redux, it showed well the error messages such as "email must not be empty"
+    //https://stackoverflow.com/questions/62722407/how-to-change-update-componentwillreceiveprops-to-getderivedstatefromprops-in-re
+    /*componentWillReceiveProps(nextProps){
+        if(nextProps.UI.errors) {
+            this.setState({ errors: nextProps.UI.errors });
+        }
+    }*/
+    componentDidUpdate(prevProps) {
+        if (prevProps.UI.errors !== this.props.UI.errors) { // <-- Only update error state if value different
+            this.setState({
+              errors: this.props.UI.errors,
+            });
+          }
     }
 
     handleSubmit = (event) => {
         event.preventDefault(); //
-        this.setState({
-            loading: true
-        });
+        //this.setState({
+       //     loading: true
+       // });
         const userData = {
             email: this.state.email,
             password: this.state.password
         };
-        const optionAX = {
+        this.props.loginUser(userData, this.props.history); //call the loginUSer with params
+        /*const optionAX = {
             url: '/login',
             method: 'POST',
             data: userData
@@ -76,6 +96,7 @@ class LoginPage extends Component {
         axios(optionAX)
             .then(res => {
                 console.log(res.data);
+                localStorage.setItem('FBToken', `Bearer ${res.data.token}`); //it will be used in App.js file
                 this.setState({
                     loading: false
                 }); 
@@ -86,10 +107,10 @@ class LoginPage extends Component {
                     errors: err.response.data,
                     loading: false
                 })
-            })
+            })*/
             //https://blog.logrocket.com/axios-or-fetch-api/
             //https://stackoverflow.com/questions/42701129/how-to-push-to-history-in-react-router-v4?rq=1
-    }
+    };
 
    handleChange = (event) => {
        this.setState({
@@ -98,8 +119,8 @@ class LoginPage extends Component {
 
    }
     render() {
-        const { classes } = this.props;
-        const { errors, loading } = this.state;
+        const { classes, UI: { loading} } = this.props;
+        const { errors } = this.state; //error handle  in ui reducer!
         return (
             <Grid container className={classes.loginForm}>
                 <Grid item sm></Grid>
@@ -136,9 +157,9 @@ class LoginPage extends Component {
                             onChange={this.handleChange} 
                             fullWidth>
                             </TextField>
-                            {errors.general && (
+                            {errors.errorMsg && (
                                 <Typography variant="body2" className={classes.errorMsg}>
-                                    {errors.general}
+                                    {errors.errorMsg}
                                 </Typography>
                             )}
                         <Button 
@@ -165,10 +186,23 @@ class LoginPage extends Component {
 }
 
 LoginPage.propTypes = {
-    classes: PropTypes.object.isRequired
+    classes: PropTypes.object.isRequired,
+    loginUser: PropTypes.func.isRequired,
+    user: PropTypes.object.isRequired,
+    UI: PropTypes.object.isRequired
 }
+//take the gloabl state
+const mapStateToProps = (state) => ({
+    user: state.user,
+    UI: state.UI
+});
 
-export default withStyles(styles)(LoginPage)
+const mapActionsToProps = {
+    loginUser
+}
+//export default withStyles(styles)(LoginPage)
+export default connect(mapStateToProps, mapActionsToProps)(withStyles(styles)(LoginPage))
+//export default withStyles(styles)(LoginPage)
 /*
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';//error?

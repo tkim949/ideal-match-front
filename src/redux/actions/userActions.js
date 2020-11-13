@@ -12,18 +12,18 @@ import {
   } from '../types';
   import axios from 'axios';
 
-  const setAuthorizationHeader = (token) => {
+  /*const setAuthorizationHeader = (token) => {
     const FBIdToken = `Bearer ${token}`;
     localStorage.setItem('FBIdToken', FBIdToken);
     axios.defaults.headers.common['Authorization'] = FBIdToken;
-}
+}*/
 export const getUserData = () => (dispatch) => {
     dispatch({ type: LOADING_USER })
   axios.get('/user')
     .then(res => {
         dispatch({
             type: SET_USER,
-            payload: res.data,
+            payload: res.data, //payload is a data that we send reducer
 
         })
     })
@@ -40,29 +40,29 @@ export const getUserData = () => (dispatch) => {
     };
     axios(optionAX)
         .then(res => {
-            const FBIdToken = `Bearer ${res.data.token}`;
-            localStorage.setItem('FBIdToken', FBIdToken);
-            axios.defaults.headers.common['Authorization'] = FBIdToken;
+            console.log(res.data);
+            
+            localStorage.setItem('FBToken', `Bearer ${res.data.token}`); //it will be used in App.js file
+            axios.defaults.headers.common['Authorization'] = `Bearer ${res.data.token}`;
             dispatch(getUserData());
-            dispatch({ type: CLEAR_ERRORS });
-            history.push('/');
+            dispatch({ type: CLEAR_ERRORS});
+            history.push('/'); //to the homepage/redirect 
         })
-        .catch(err => {
-            dispatch({
-                type: SET_ERRORS,
-                payload: err.response.data //error 
-                //Unhandled Rejection (TypeError): Cannot read property 'data' of undefined
-            });
-        });
+        .catch((err) => {
+          dispatch({
+            type: SET_ERRORS,
+            payload: err.response.data
+            })
+        })
 
   };
 
+  //delete token, so a user can logout!
   export const logoutUser = () => (dispatch) => {
-    localStorage.removeItem('FBIdToken');
+    localStorage.removeItem('FBToken');
     delete axios.defaults.headers.common['Authorization'];
     dispatch({ type: SET_UNAUTHENTICATED });
-  };
-  
+  }; 
 
   export const signupUser = (newUserData, history) => (dispatch) => {
     dispatch({ type: LOADING_UI });
@@ -73,7 +73,8 @@ export const getUserData = () => (dispatch) => {
     };
     axios(optionAX)
         .then(res => {
-           setAuthorizationHeader(res.data.token)
+           localStorage.setItem('FBToken', `Bearer ${res.data.token}`); //it will be used in App.js file
+           axios.defaults.headers.common['Authorization'] = `Bearer ${res.data.token}`;
             dispatch(getUserData());
             dispatch({ type: CLEAR_ERRORS });
             history.push('/');
@@ -85,13 +86,6 @@ export const getUserData = () => (dispatch) => {
             });
         });
   };
-
-
-
-  
-  
-
-
 
   /*
   

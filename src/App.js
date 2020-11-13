@@ -88,8 +88,8 @@ class App extends Component {
                     <Route exact path="/" component={HomePage}/>
                     <AuthRoute exact path="/login" component={LoginPage}  authenticated={authenticated}/>
                     <AuthRoute exact path="/signup" component={SignupPage} authenticated={authenticated}/>
-                    <Route exact path="/maybe" component={MaybePage}  />
-                    <Route exact path="/match" component={MatchPage} />
+                    <AuthRoute exact path="/maybe" component={MaybePage} authenticated={authenticated}/>
+                    <AuthRoute exact path="/match" component={MatchPage} authenticated={authenticated}/>
                     <Route component={NotFoundPage} />
                   </Switch>
                 </div>
