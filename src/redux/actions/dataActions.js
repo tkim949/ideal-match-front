@@ -1,45 +1,45 @@
-/*
+
 import {
-    SET_SCREAMS,
+    SET_PROFILES,
     LOADING_DATA,
-    LIKE_SCREAM,
-    UNLIKE_SCREAM,
-    DELETE_SCREAM,
+    LIKE_PROFILE,
+    UNLIKE_PROFILE,
+    DELETE_PROFILE,
     SET_ERRORS,
-    POST_SCREAM,
+    POST_PROFILE,
     CLEAR_ERRORS,
     LOADING_UI,
-    SET_SCREAM,
+    SET_PROFILE,
     STOP_LOADING_UI,
-    SUBMIT_COMMENT
+    //SUBMIT_COMMENT
   } from '../types';
   import axios from 'axios';
   
-  // Get all screams
-  export const getScreams = () => (dispatch) => {
+  // Get all PROFILEs
+  export const getProfiles = () => (dispatch) => {
     dispatch({ type: LOADING_DATA });
     axios
-      .get('/screams')
+      .get('/profiles')
       .then((res) => {
         dispatch({
-          type: SET_SCREAMS,
+          type: SET_PROFILES,
           payload: res.data
         });
       })
       .catch((err) => {
         dispatch({
-          type: SET_SCREAMS,
+          type: SET_PROFILES,
           payload: []
         });
       });
   };
-  export const getScream = (screamId) => (dispatch) => {
+  export const getProfile = (profileId) => (dispatch) => {
     dispatch({ type: LOADING_UI });
     axios
-      .get(`/scream/${screamId}`)
+      .get(`/profile/${profileId}`)
       .then((res) => {
         dispatch({
-          type: SET_SCREAM,
+          type: SET_PROFILE,
           payload: res.data
         });
         dispatch({ type: STOP_LOADING_UI });
@@ -47,13 +47,13 @@ import {
       .catch((err) => console.log(err));
   };
   // Post a scream
-  export const postScream = (newScream) => (dispatch) => {
+  export const postProfile = (newProfile) => (dispatch) => {
     dispatch({ type: LOADING_UI });
     axios
-      .post('/scream', newScream)
+      .post('/profile', newProfile)
       .then((res) => {
         dispatch({
-          type: POST_SCREAM,
+          type: POST_PROFILE,
           payload: res.data
         });
         dispatch(clearErrors());
@@ -65,31 +65,32 @@ import {
         });
       });
   };
-  // Like a scream
-  export const likeScream = (screamId) => (dispatch) => {
+  // Like a profile
+  export const likeProfile = (profileId) => (dispatch) => {
     axios
-      .get(`/scream/${screamId}/like`)
+      .post(`/profile/${profileId}/like`)
       .then((res) => {
         dispatch({
-          type: LIKE_SCREAM,
+          type: LIKE_PROFILE,
           payload: res.data
         });
       })
       .catch((err) => console.log(err));
   };
-  // Unlike a scream
-  export const unlikeScream = (screamId) => (dispatch) => {
+  // Unlike a profile
+  export const unlikeProfile = (profileId) => (dispatch) => {
     axios
-      .get(`/scream/${screamId}/unlike`)
+      .delete(`/profile/${profileId}/like`)
       .then((res) => {
         dispatch({
-          type: UNLIKE_SCREAM,
+          type: UNLIKE_PROFILE,
           payload: res.data
         });
       })
       .catch((err) => console.log(err));
   };
   // Submit a comment
+  /*
   export const submitComment = (screamId, commentData) => (dispatch) => {
     axios
       .post(`/scream/${screamId}/comment`, commentData)
@@ -106,12 +107,12 @@ import {
           payload: err.response.data
         });
       });
-  };
-  export const deleteScream = (screamId) => (dispatch) => {
+  }; */
+  export const deleteProfile = (profileId) => (dispatch) => {
     axios
-      .delete(`/scream/${screamId}`)
+      .delete(`/profile/${profileId}`)
       .then(() => {
-        dispatch({ type: DELETE_SCREAM, payload: screamId });
+        dispatch({ type: DELETE_PROFILE, payload: profileId });
       })
       .catch((err) => console.log(err));
   };
@@ -122,13 +123,13 @@ import {
       .get(`/user/${userHandle}`)
       .then((res) => {
         dispatch({
-          type: SET_SCREAMS,
-          payload: res.data.screams
+          type: SET_PROFILES,
+          payload: res.data.profiles
         });
       })
       .catch(() => {
         dispatch({
-          type: SET_SCREAMS,
+          type: SET_PROFILES,
           payload: null
         });
       });
@@ -137,4 +138,4 @@ import {
   export const clearErrors = () => (dispatch) => {
     dispatch({ type: CLEAR_ERRORS });
   }; 
-  */
+  

@@ -4,8 +4,8 @@ import {
     SET_AUTHENTICATED,
     SET_UNAUTHENTICATED,
     LOADING_USER,
-    //LIKE_SCREAM,
-    //UNLIKE_SCREAM,
+    LIKE_PROFILE,
+    UNLIKE_PROFILE,
     //MARK_NOTIFICATIONS_READ
   } from '../types';
   
@@ -38,25 +38,25 @@ import {
           ...state,
           loading: true
         };
-    /*  case LIKE_SCREAM:
+    case LIKE_PROFILE:
         return {
           ...state,
           likes: [
             ...state.likes,
             {
               userHandle: state.credentials.handle,
-              screamId: action.payload.screamId
+              profileId: action.payload.profileId
             }
           ]
         };
-      case UNLIKE_SCREAM:
+      case UNLIKE_PROFILE:
         return {
           ...state,
           likes: state.likes.filter(
-            (like) => like.screamId !== action.payload.screamId
+            (like) => like.profileId !== action.payload.profileId
           )
         };
-      case MARK_NOTIFICATIONS_READ:
+      /*case MARK_NOTIFICATIONS_READ:
         state.notifications.forEach((not) => (not.read = true));
         return {
           ...state

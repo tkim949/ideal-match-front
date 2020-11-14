@@ -11,12 +11,12 @@ import LinkToData from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import { IconButton } from '@material-ui/core';
-
+//https://material-ui.com/components/tooltips/
+import Tooltip from '@material-ui/core/Tooltip';
 //for image update
 //icon//https://material-ui.com/components/material-icons/
 import EditIcon from '@material-ui/icons/Edit';
-//https://material-ui.com/components/tooltips/
-import Tooltip from '@material-ui/core/Tooltip';
+
 
 //for edit the exist contents
 import EditDetails from './EditDetails';

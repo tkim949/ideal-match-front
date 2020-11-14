@@ -13,6 +13,17 @@ import Typography from '@material-ui/core/Typography';
 //npm install --save dayjs
 import dayjs from 'dayjs';
 
+//add like and delete, redux
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { likeProfile, unlikeProfile } from '../redux/actions/dataActions';
+import { IconButton } from '@material-ui/core';
+//https://material-ui.com/components/tooltips/
+import Tooltip from '@material-ui/core/Tooltip';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+
+
 const styles = {
     card: {
         display: 'flex',
@@ -29,6 +40,19 @@ const styles = {
 };
 
 class Profile extends Component {
+    likedProfile = () => {
+        if(this.props.user.likes && this.props.user.likes.find(like => like.profileId === this.props.profile.profileId))
+            return true;
+        else return false;
+    
+    };
+
+    likeProfile = () => {
+        this.props.likeProfile(this.props.profile.profileId);
+    }
+    unlikeProfile = () => {
+        this.props.unlikeProfile(this.props.profile.profileId);
+    }
     render() {
         const { classes, profile: { name,
                                     intro, 
@@ -37,8 +61,35 @@ class Profile extends Component {
                                     handle, 
                                     profileId, 
                                     likeCount
-                                } } = this.props;
+                                   },
+                        user: {
+                            authenticated
+                        }} = this.props;
         //let time = dayjs(classes.createdAt);
+        const likeButton = !authenticated ? (
+            <Tooltip title="Like" placement="top">
+                    <IconButton  className={classes.button}>
+                        <Link to="/login">
+                            <FavoriteBorderIcon color="primary"/>
+                        </Link>
+                    </IconButton>
+               </Tooltip>
+
+        ) : ( this.likedProfile() ? (
+            <Tooltip title="Cancle Like" placement="top">
+                    <IconButton  onClick={this.unlikeProfile} className={classes.button}>
+                        <FavoriteIcon color="primary"/>   
+                    </IconButton>
+               </Tooltip>
+        ) : (
+            <Tooltip title="Like" placement="top">
+                    <IconButton  onClick={this.likeProfile} className={classes.button}>
+                        <FavoriteBorderIcon color="primary"/>   
+                    </IconButton>
+               </Tooltip>
+
+        ));
+
         return(
             <Card className={classes.card}>
                <CardMedia
@@ -57,10 +108,32 @@ class Profile extends Component {
                 <Typography variant="body2" color="textSecondary">{dayjs(createdAt).format('YYYY-MM-DD')} </Typography>
                 <Typography variant="body1">{name}</Typography>
                 <Typography variant="body1">{intro}</Typography>
+                {likeButton}
+                <span>{likeCount} Likes</span>
+                
             </CardContent>
         </Card>
         )
     }
 }
 
-export default withStyles(styles)(Profile)
+Profile.propTypes = {
+    likeProfile: PropTypes.func.isRequired,
+    unlikeProfile: PropTypes.func.isRequired,
+    user: PropTypes.object.isRequired,
+    profile: PropTypes.object.isRequired,
+    classes: PropTypes.object.isRequired //styles
+
+}
+
+const mapStateToProps = (state) => {
+    return { user: state.user };
+}
+
+const mapActionsToProps = {
+    likeProfile,
+    unlikeProfile
+}
+
+//export default withStyles(styles)(Profile)
+export default connect(mapStateToProps, mapActionsToProps)(withStyles(styles)(Profile));

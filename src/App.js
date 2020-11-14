@@ -19,7 +19,7 @@ import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
 import MaybePage from './pages/MaybePage';
 import MatchPage from './pages/MatchPage';
-import NotFoundPage from './pages/NotFoundPage';
+import AccountPage from './pages/AccountPage';
 
 //[redux] ---> state, event, actions, dispatcher, store, reducer, state
 //npm install --save redux react-redux redux-thunk
@@ -92,7 +92,8 @@ class App extends Component {
                     <AuthRoute exact path="/signup" component={SignupPage} />
                     <AuthRoute exact path="/maybe" component={MaybePage} />
                     <AuthRoute exact path="/match" component={MatchPage} />
-                    <Route component={NotFoundPage} />
+                    <Route exact path="/account" component={AccountPage}/>
+                    {/*<Route component={NotFoundPage} />*/}
                   </Switch>
                 </div>
               </Router>

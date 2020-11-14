@@ -1,74 +1,74 @@
-/*
+
 import {
-    SET_SCREAMS,
-    LIKE_SCREAM,
-    UNLIKE_SCREAM,
+    SET_PROFILES,
+    LIKE_PROFILE,
+    UNLIKE_PROFILE,
     LOADING_DATA,
-    DELETE_SCREAM,
-    POST_SCREAM,
-    SET_SCREAM,
-    SUBMIT_COMMENT
+    DELETE_PROFILE,
+    POST_PROFILE,
+    SET_PROFILE,
+    //SUBMIT_COMMENT
   } from '../types';
   
   const initialState = {
-    screams: [],
-    scream: {},
+    profiles: [],
+    profile: {},
     loading: false
   };
   
-  export default function(state = initialState, action) {
+  export default function dataReducer(state = initialState, action) {
     switch (action.type) {
       case LOADING_DATA:
         return {
           ...state,
           loading: true
         };
-      case SET_SCREAMS:
+      case SET_PROFILES:
         return {
           ...state,
-          screams: action.payload,
+          profiles: action.payload,
           loading: false
         };
-      case SET_SCREAM:
+      case SET_PROFILE:
         return {
           ...state,
-          scream: action.payload
+          profile: action.payload
         };
-      case LIKE_SCREAM:
-      case UNLIKE_SCREAM:
-        let index = state.screams.findIndex(
-          (scream) => scream.screamId === action.payload.screamId
+      case LIKE_PROFILE:
+      case UNLIKE_PROFILE:
+        let index = state.profiles.findIndex(
+          (profile) => profile.profileId === action.payload.profileId
         );
-        state.screams[index] = action.payload;
-        if (state.scream.screamId === action.payload.screamId) {
-          state.scream = action.payload;
+        state.profiles[index] = action.payload;
+        if (state.profile.profileId === action.payload.profileId) {
+          state.profile = action.payload;
         }
         return {
           ...state
         };
-      case DELETE_SCREAM:
-        index = state.screams.findIndex(
-          (scream) => scream.screamId === action.payload
+      case DELETE_PROFILE:
+        index = state.profiles.findIndex(
+          (profile) => profile.profileId === action.payload
         );
-        state.screams.splice(index, 1);
+        state.profiles.splice(index, 1);
         return {
           ...state
         };
-      case POST_SCREAM:
+      case POST_PROFILE:
         return {
           ...state,
-          screams: [action.payload, ...state.screams]
+          profiles: [action.payload, ...state.profiles]
         };
-      case SUBMIT_COMMENT:
+     /* case SUBMIT_COMMENT:
         return {
           ...state,
           scream: {
             ...state.scream,
             comments: [action.payload, ...state.scream.comments]
           }
-        };
+        }; */
       default:
         return state;
     }
   }
-  */
+  
