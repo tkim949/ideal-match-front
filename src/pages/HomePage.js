@@ -4,15 +4,17 @@ import { Grid } from '@material-ui/core';
 
 //npm install --save axios //to fetch the data from firebase
 //import axios from 'axios';
-
-import Profile from '../components/Profile';
-import Detail from '../components/Detail';
+import Members from '../components/Members';
+//import Profile from '../components/Profile';
+//import Detail from '../components/Detail';
+import InOrOut from '../components/InOrOut';
+import PhotoGallery from '../components/PhotoGal';
 
 //connect react
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { getProfiles } from '../redux/actions/dataActions';
-
+//import { getProfiles } from '../redux/actions/dataActions';
+import { getMembers } from '../redux/actions/dataActions';
 
 
 class HomePage extends Component {
@@ -47,7 +49,12 @@ class HomePage extends Component {
     */
 
     componentDidMount() {
-        this.props.getProfiles();
+        //this.props.getProfiles();
+        this.props.getMembers();
+    }
+
+    handleLogout = () => {
+        this.props.logoutUser();
     }
 
     /*///
@@ -55,16 +62,21 @@ class HomePage extends Component {
         profiles: null
     }*///
 
-   
-    
-
     render() {
 
-        const { profiles, loading } = this.props.data;
-        let recentProf = !loading ? (
-            profiles.map((profile, index) => (
+        const { members, loading } = this.props.data; //
+        const { user: { authenticated}} = this.props;
+        console.log(authenticated);
+        let recentProf = !loading ? ( 
+            authenticated ? (
+            members.map((member, index) => (
+                <Members key={index} member={member} />
+            ))) : (<PhotoGallery />)) : (<p>Loading...</p>);
+
+         /*
+         profiles.map((profile, index) => (
                 <Profile key={index} profile={profile} />
-            ))) : (<p>Loading...</p>);
+         */
         
 
         /*
@@ -74,12 +86,13 @@ class HomePage extends Component {
             )) : (<p>Loading...</p>);
         */
         return (
-            <Grid container spacing={10}>
-                <Grid item sm={8} xs={12}>
+            <Grid container spacing={4}>
+                <Grid item sm={10} xs={12}>
                     {recentProf}
                 </Grid>
-                <Grid item sm={4} xs={12}>
-                    <Detail/>
+                <Grid item sm={2} xs={12}>
+                   
+                    <InOrOut />
                </Grid>
             </Grid>
         )
@@ -87,13 +100,15 @@ class HomePage extends Component {
 }
 
 HomePage.propTypes = {
-    getProfiles: PropTypes.func.isRequired,
-    data: PropTypes.object.isRequired
+    getMembers: PropTypes.func.isRequired, //
+    data: PropTypes.object.isRequired,
+    user: PropTypes.object.isRequired,
+    authenticated: PropTypes.bool.isRequired
 }
 
 const mapStateToProps = (state) => {
-    return { data: state.data };
+    return { data: state.data, user: state.user };
 }
 
 //export default HomePage;
-export default connect(mapStateToProps, { getProfiles })(HomePage);
+export default connect(mapStateToProps, { getMembers })(HomePage); //

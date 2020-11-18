@@ -1,12 +1,11 @@
 
 import {
     SET_USER,
-    //SET_ERRORS,
-    //CLEAR_ERRORS,
-    LOADING_UI,
-    CLEAR_ERRORS,
     SET_ERRORS,
+    CLEAR_ERRORS,
+    LOADING_UI,
     SET_UNAUTHENTICATED,
+    SET_AUTHENTICATED,
     LOADING_USER,
     //MARK_NOTIFICATIONS_READ
   } from '../types';
@@ -44,7 +43,9 @@ export const getUserData = () => (dispatch) => {
             
             localStorage.setItem('FBToken', `Bearer ${res.data.token}`); //it will be used in App.js file
             axios.defaults.headers.common['Authorization'] = `Bearer ${res.data.token}`;
-            dispatch(getUserData());
+            dispatch({ type: SET_AUTHENTICATED});
+            dispatch(getUserData()); 
+            //first get user data, which is from profiles!
             dispatch({ type: CLEAR_ERRORS});
             history.push('/'); //to the homepage/redirect 
         })
@@ -75,9 +76,10 @@ export const getUserData = () => (dispatch) => {
         .then(res => {
            localStorage.setItem('FBToken', `Bearer ${res.data.token}`); //it will be used in App.js file
            axios.defaults.headers.common['Authorization'] = `Bearer ${res.data.token}`;
-            dispatch(getUserData());
+            dispatch({ type: SET_AUTHENTICATED});
+            dispatch(getUserData()); //first get user data
             dispatch({ type: CLEAR_ERRORS });
-            history.push('/');
+            history.push('/'); //redirect!
         })
         .catch(err => {
             dispatch({
@@ -90,13 +92,14 @@ export const getUserData = () => (dispatch) => {
   export const uploadImage = (formData) => (dispatch) => {
     dispatch({ type: LOADING_USER });
     axios
-      .post('/profile/image', formData)
+      .post('/user/image', formData)
       .then(() => {
         dispatch(getUserData());
       })
       .catch((err) => console.log(err));
   };
 
+  
   export const editUserDetails = (profileDetails) => (dispatch) => {
     dispatch({ type: LOADING_USER });
     axios
@@ -107,8 +110,11 @@ export const getUserData = () => (dispatch) => {
       .catch((err) => console.log(err));
   };
 
+  export const clearErrorsU = () => (dispatch) => {
+    dispatch({ type: CLEAR_ERRORS });
+  }; 
+
   /*
-  
   export const loginUser = (userData, history) => (dispatch) => {
     dispatch({ type: LOADING_UI });
     axios

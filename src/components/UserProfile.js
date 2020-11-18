@@ -15,8 +15,8 @@ import { IconButton } from '@material-ui/core';
 import Tooltip from '@material-ui/core/Tooltip';
 //for image update
 //icon//https://material-ui.com/components/material-icons/
-import EditIcon from '@material-ui/icons/Edit';
-
+//import EditIcon from '@material-ui/icons/Edit';
+import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
 
 //for edit the exist contents
 import EditDetails from './EditDetails';
@@ -92,7 +92,7 @@ Learn more about using refs safely here: https://reactjs.org/link/strict-mode-fi
 Solution: https://stackoverflow.com/questions/60903335/warning-finddomnode-is-deprecated-in-strictmode-finddomnode-was-passed-an-inst
 */
 
-class Detail extends Component {
+class UserProfile extends Component {
     handleImageChange = (event) => {
         const image = event.target.files[0];
         //send the image to the server
@@ -124,7 +124,7 @@ class Detail extends Component {
                                                  <input type="file" id="imageInput" hidden="hidden" onChange={this.handleImageChange}/>
                                                  <Tooltip title="Edit profile picture" placement="top">
                                                     <IconButton onClick={this.handleEditPicture} className="button">
-                                                        <EditIcon color="primary"/>
+                                                        <AddAPhotoIcon color="primary"/>
                                                     </IconButton>
                                                  </Tooltip>
                                              </div>
@@ -203,14 +203,14 @@ const mapStateToProps = (state) => {
 const mapActionsToProps = { logoutUser, uploadImage };
 
 
-Detail.propTypes = {
+UserProfile.propTypes = {
         logoutUser: PropTypes.func.isRequired,
         uploadImage: PropTypes.func.isRequired,
         user: PropTypes.object.isRequired,
         classes: PropTypes.object.isRequired 
 }
 
-export default connect(mapStateToProps, mapActionsToProps)(withStyles(styles)(Detail))
+export default connect(mapStateToProps, mapActionsToProps)(withStyles(styles)(UserProfile))
 
 
 

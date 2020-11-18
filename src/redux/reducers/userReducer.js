@@ -6,6 +6,8 @@ import {
     LOADING_USER,
     LIKE_PROFILE,
     UNLIKE_PROFILE,
+    LIKE_MEMBER,
+    UNLIKE_MEMBER,
     //MARK_NOTIFICATIONS_READ
   } from '../types';
   
@@ -14,6 +16,7 @@ import {
     loading: false,
     credentials: {},
     likes: [],
+    mLikes: []
     //notifications: []
   };
   //https://github.com/benmosher/eslint-plugin-import/blob/v2.22.1/docs/rules/no-anonymous-default-export.md
@@ -33,18 +36,18 @@ import {
           loading: false,
           ...action.payload
         };
-     case LOADING_USER:
+       case LOADING_USER:
         return {
           ...state,
           loading: true
         };
-    case LIKE_PROFILE:
+       case LIKE_PROFILE:
         return {
           ...state,
           likes: [
             ...state.likes,
             {
-              userHandle: state.credentials.handle,
+              handle: state.credentials.handle, //userHandle########
               profileId: action.payload.profileId
             }
           ]
@@ -54,6 +57,24 @@ import {
           ...state,
           likes: state.likes.filter(
             (like) => like.profileId !== action.payload.profileId
+          )
+        };
+        case LIKE_MEMBER:
+        return {
+          ...state,
+          mLikes: [
+            ...state.mLikes,
+            {
+              handle: state.credentials.userName, //userHandle########
+              person: action.payload.userName
+            }
+          ]
+        };
+      case UNLIKE_MEMBER:
+        return {
+          ...state,
+          mLikes: state.mLikes.filter(
+            (mLike) => mLike.person !== action.payload.userName
           )
         };
       /*case MARK_NOTIFICATIONS_READ:

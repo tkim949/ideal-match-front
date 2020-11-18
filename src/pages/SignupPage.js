@@ -52,7 +52,10 @@ const styles = {
         marginTop: 10
     }
 };
+/*used 'handle' instead of userName thinking same handle name in profile and like is convenient,
+Then, i had problem when I wanted to delete it so change it to userName!
 
+*/
 
 class SignupPage extends Component {
 
@@ -62,7 +65,7 @@ class SignupPage extends Component {
             email: '',
             password: '',
             confirmPassword:'',
-            handle:'',
+            userName:'', //handle######
             //loading: false,
             errors: {} //for the potential errors on the form
         }
@@ -79,13 +82,13 @@ class SignupPage extends Component {
     handleSubmit = (event) => {
         event.preventDefault(); //
          this.setState({
-            loading: true
+            loading: true,
          });
         const newUserData = {
             email: this.state.email,
             password: this.state.password,
             confirmPassword: this.state.confirmPassword,
-            handle: this.state.handle
+            userName: this.state.userName //###handle
         };
         //[error] Uncaught TypeError: this.props.signupUser is not a function
         this.props.signupUser(newUserData, this.props.history);
@@ -120,21 +123,21 @@ class SignupPage extends Component {
        this.setState({
            [event.target.name]: event.target.value
        });
-
    }
     render() {
         const { classes, UI: { loading } } = this.props;
         const { errors } = this.state;
+        
         return (
             <Grid container className={classes.signupForm}>
-                <Grid item sm></Grid>
                
+                <Grid item sm></Grid>
                 <Grid>
                 <img src={AppIcon} alt="date" className={classes.icon}></img>
                     <Typography variant="h2" className={classes.pageTitle}>
                         Signup
                     </Typography>
-                    <form noValidate onSubmit={this.handleSubmit}> {/* later change to input!*/}
+                    <form noValidate onSubmit={this.handleSubmit}> 
                         <TextField 
                             id="email" 
                             name="email" 
@@ -174,18 +177,18 @@ class SignupPage extends Component {
                             onChange={this.handleChange} 
                             fullWidth>
                         </TextField>
-                        <TextField 
-                            id="handle" 
-                            name="handle" 
+                        <TextField
+                            id="userName" 
+                            name="userName" 
                             type="text" 
                             label="UserName" 
                             variant="outlined"
-                            helperText={errors.handle}
-                            error={errors.handle ? true : false}
+                            helperText={errors.userName}
+                            error={errors.userName ? true : false}
                             className={classes.textField}
-                            value={this.state.handle}  
+                            value={this.state.userName}  
                             onChange={this.handleChange} 
-                            fullWidth>
+                            fullWidth> 
                         </TextField>
                             {errors.errorMsg && (
                                 <Typography variant="body2" className={classes.errorMsg}>
@@ -203,6 +206,7 @@ class SignupPage extends Component {
                             )}
                            </Button>
                         <br/>
+                            
                         <small>You already have an acount? <Link to="/login">Go to Login</Link></small>
                     </form>
 

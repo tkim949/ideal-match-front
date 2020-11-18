@@ -11,6 +11,7 @@ import { ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles';
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
 import jwt_decode from 'jwt-decode';
 import AuthRoute from './util/AuthRoute';
+//import AuthSignup from './util/AuthSignup';
 //npm install --save react-router-dom
 import Navbar from './components/Navbar';
 //pages
@@ -18,8 +19,9 @@ import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
 import MaybePage from './pages/MaybePage';
-import MatchPage from './pages/MatchPage';
+//import MatchPage from './pages/MatchPage';
 import AccountPage from './pages/AccountPage';
+import Member from './pages/Member';
 
 //[redux] ---> state, event, actions, dispatcher, store, reducer, state
 //npm install --save redux react-redux redux-thunk
@@ -40,15 +42,15 @@ axios.defaults.baseURL="https://us-central1-i-match-7689e.cloudfunctions.net/api
 const theme = createMuiTheme({
   palette: {
     primary: {
-      light: '#039be5',
-      main: '#0288d1',
-      dark: '#0277bd',
+      light: '#455a64',
+      main: '#37474f',
+      dark: '#263238',
       contrastText: '#fff'
     },
     secondary: {
-      light: '#e1bee7',
-      main: '#ce93d8',
-      dark: '#ba68c8',
+      light: '#f57c00',
+      main: '#ef6c00',
+      dark: '#e65100',
       contrastText: '#fff'
     }
   }
@@ -90,9 +92,9 @@ class App extends Component {
                     <Route exact path="/" component={HomePage}/>
                     <AuthRoute exact path="/login" component={LoginPage}  />
                     <AuthRoute exact path="/signup" component={SignupPage} />
-                    <AuthRoute exact path="/maybe" component={MaybePage} />
-                    <AuthRoute exact path="/match" component={MatchPage} />
+                    <Route exact path="/maybe" component={MaybePage} />
                     <Route exact path="/account" component={AccountPage}/>
+                    <Route exact path="/users/:handle" component={Member}/>
                     {/*<Route component={NotFoundPage} />*/}
                   </Switch>
                 </div>

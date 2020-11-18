@@ -10,11 +10,15 @@ body {
   margin: 80px auto 0 auto;
   /*margin-left: 100px;*/
   max-width: 1200px;
+  max-height: 1000px;
 }
 
 .nav-container {
   margin: auto;
   
+}
+.nav-container .button {
+  color: #fff;
 }
 
 a {

@@ -1,5 +1,5 @@
 //npm install --save @material-ui/icons
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
@@ -7,25 +7,24 @@ import { Link } from 'react-router-dom';
 //show data
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
-import LinkToData from '@material-ui/core/Link';
+//import LinkToData from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
-import LocationOnIcon from '@material-ui/icons/LocationOn';
-import { IconButton } from '@material-ui/core';
+//import LocationOnIcon from '@material-ui/icons/LocationOn';
+//import { IconButton } from '@material-ui/core';
 //https://material-ui.com/components/tooltips/
-import Tooltip from '@material-ui/core/Tooltip';
+//import Tooltip from '@material-ui/core/Tooltip';
 //for image update
 //icon//https://material-ui.com/components/material-icons/
-import EditIcon from '@material-ui/icons/Edit';
+//import EditIcon from '@material-ui/icons/Edit';
 
 
 //for edit the exist contents
-import EditDetails from './EditDetails';
+//import EditDetails from './EditDetails';
 
 //redux
 import { connect } from 'react-redux';
-import { logoutUser, uploadImage } from '../redux/actions/userActions'
+import { logoutUser } from '../redux/actions/userActions'
 //import { KeyboardReturn } from '@material-ui/icons';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 
 const styles = {
@@ -92,7 +91,7 @@ Learn more about using refs safely here: https://reactjs.org/link/strict-mode-fi
 Solution: https://stackoverflow.com/questions/60903335/warning-finddomnode-is-deprecated-in-strictmode-finddomnode-was-passed-an-inst
 */
 
-class Detail extends Component {
+class InOrOut extends Component {
     handleImageChange = (event) => {
         const image = event.target.files[0];
         //send the image to the server
@@ -111,60 +110,45 @@ class Detail extends Component {
     }
     //get '/user', which get data from 'profiles'
     render() {
-        const { classes, user: { credentials: { userName, userImage, intro, interest, value, location },
+        const { classes, user: { 
             authenticated,
             loading,
          }
         } = this.props;
-        let detailShow = !loading ? (authenticated ? 
+        let show = !loading ? (authenticated ? 
                                      ( <Paper className={classes.paper}>
-                                         <div className={classes.detail}>
-                                             <div className="image-wrapper">
-                                                 <img src={userImage} alt="profileImage" className="profile-image"/>
-                                                 <input type="file" id="imageInput" hidden="hidden" onChange={this.handleImageChange}/>
-                                                 <Tooltip title="Edit profile picture" placement="top">
-                                                    <IconButton onClick={this.handleEditPicture} className="button">
-                                                        <EditIcon color="primary"/>
-                                                    </IconButton>
-                                                 </Tooltip>
-                                             </div>
-                                             <hr/>
-                                             <div className="profile-body">
-                                            <Typography variant="body2">{userName}</Typography>
+                                         <div className={classes.bntLogout}>
+                                             <br/>
+                                             <Typography variant="body2" align="center">
+                                                 Need to check your profile? 
+                                             </Typography>
+                                             <Typography variant="body2" align="center">
+                                                 Go and update your profile on account! 
+                                             </Typography>
                                             
-                                                {intro && <Typography variant="body2">{intro}</Typography>}
-                                                 <hr/>
-                                                 {interest && <Typography variant="body2">Interest: {interest}</Typography>}
-                                                 <hr/>
-                                                 {value && <Typography variant="body2">Value: {value}</Typography>}
-                                                 <hr/>
-
-                                                 <LinkToData component={Link} to={`users/${userName}`} 
-                                                    color="primary" variant="h5">
-                                                        @{userName}
-
-                                                    </LinkToData>
-                                                
-                                                
-                                                 {location && (
-                                                     <Fragment>
-                                                        <LocationOnIcon color="primary" /> <span>{location}</span>
-                                                     </Fragment>
-                                                 )}
-  
+                                             <div className={classes.buttons}>
+                                                <Button
+                                                variant="contained"
+                                                color="secondary"
+                                                component={Link}
+                                                to="/account"
+                                                >
+                                                Account
+                                                </Button>
+                    
+                                                <Button
+                                                variant="contained"
+                                                color="primary"
+                                                onClick={this.handleLogout}
+                                                >Logout
+                                                </Button>
                                              </div>
-                                             <Tooltip title="Logout" placement="top">
-                                                 <IconButton onClick={this.handleLogout}>
-                                                     <ExitToAppIcon color="primary"/>
-                                                 </IconButton>
-                                             </Tooltip>
-                                             <EditDetails />
                                          </div>
-
                                      </Paper>
 
                                      ) : (
-                                         <Paper className={classes.paper}>
+                                         <Paper className={classes.bntLogin}>
+                                             <br/>
                                              <Typography variant="body2" align="center">
                                                  You want to find your ideal partner? 
                                              </Typography>
@@ -191,8 +175,37 @@ class Detail extends Component {
                                             </div>
                                          </Paper>
                                      ) ) 
-                                     : (<p>loading... </p>);
-        return detailShow;
+                                     //: (<p>loading... </p>);
+                                     : <Paper className={classes.paper}>
+                                     <div className={classes.bntLogout}>
+                                         <br/>
+                                         <Typography variant="body2" align="center">
+                                            It seems you do not have profile yet. 
+                                         </Typography>
+                                         <Typography variant="body2" align="center">
+                                             Go and fill out the forms! 
+                                         </Typography>
+                                        
+                                         <div className={classes.buttons}>
+                                            <Button
+                                            variant="contained"
+                                            color="secondary"
+                                            component={Link}
+                                            to="/account"
+                                            >
+                                            Account
+                                            </Button>
+                
+                                            <Button
+                                            variant="contained"
+                                            color="primary"
+                                            onClick={this.handleLogout}
+                                            >Logout
+                                            </Button>
+                                         </div>
+                                     </div>
+                                 </Paper>
+        return show;
     }
 }
 
@@ -200,17 +213,16 @@ const mapStateToProps = (state) => {
     return {user: state.user};
 }
 
-const mapActionsToProps = { logoutUser, uploadImage };
+const mapActionsToProps = { logoutUser };
 
 
-Detail.propTypes = {
+InOrOut.propTypes = {
         logoutUser: PropTypes.func.isRequired,
-        uploadImage: PropTypes.func.isRequired,
         user: PropTypes.object.isRequired,
         classes: PropTypes.object.isRequired 
 }
 
-export default connect(mapStateToProps, mapActionsToProps)(withStyles(styles)(Detail))
+export default connect(mapStateToProps, mapActionsToProps)(withStyles(styles)(InOrOut))
 
 
 

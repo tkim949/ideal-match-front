@@ -24,8 +24,10 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 
 
+//import { deleteProfile } from '../redux/actions/dataActions';
 const styles = {
     card: {
+        position: 'relative',
         display: 'flex',
         marginBottom: 20,
     },
@@ -36,6 +38,10 @@ const styles = {
     content: {
         padding: 30,
         objectFit: 'cover',
+    },
+    deleteButton: {
+        left: '90%',
+        top: '10%'
     }
 };
 
@@ -63,7 +69,8 @@ class Profile extends Component {
                                     likeCount
                                    },
                         user: {
-                            authenticated
+                            authenticated,
+                            //credentials: { handle } //check this!
                         }} = this.props;
         //let time = dayjs(classes.createdAt);
         const likeButton = !authenticated ? (
@@ -89,7 +96,11 @@ class Profile extends Component {
                </Tooltip>
 
         ));
-
+        /*
+         const deleteButton = authenticated && handle === handle ? (
+             <DeleteProfile profileId={profileId/>
+         ) : null
+        */
         return(
             <Card className={classes.card}>
                <CardMedia
@@ -105,6 +116,7 @@ class Profile extends Component {
                    >
                     {handle}
                 </Typography>
+               {/* {deleteButton} */}
                 <Typography variant="body2" color="textSecondary">{dayjs(createdAt).format('YYYY-MM-DD')} </Typography>
                 <Typography variant="body1">{name}</Typography>
                 <Typography variant="body1">{intro}</Typography>
