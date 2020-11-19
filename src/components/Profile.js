@@ -65,7 +65,7 @@ class Profile extends Component {
                                     createdAt, 
                                     imageUrl, 
                                     handle, 
-                                    profileId, 
+                                   // profileId, 
                                     likeCount
                                    },
                         user: {

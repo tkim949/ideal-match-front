@@ -69,7 +69,9 @@ const styles = {
 const MemberProfile = (props) => {
     const {
       classes,
-      profile: { handle, createdAt, imageUrl, intro, interest, value, location }
+      profile: { handle, 
+                //createdAt, 
+                imageUrl, intro, interest, value, location }
     } = props;
   
     return (

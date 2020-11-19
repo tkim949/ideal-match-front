@@ -1,6 +1,5 @@
 
 import {
-
     LOADING_DATA,
     SET_PROFILES,
     SET_PROFILE,
@@ -18,7 +17,12 @@ import {
     SET_CHATS,
     //SET_CHAT,
     POST_CHAT,
-    //SUBMIT_COMMENT
+    DELETE_CHAT,
+    SET_OLIKES,
+    SET_MESSAGES,
+    POST_MESSAGE,
+    SET_SMESSAGES,
+
   } from '../types';
   import axios from 'axios';
   
@@ -72,6 +76,62 @@ import {
       .catch((err) => {
         dispatch({
           type: SET_CHATS,
+          payload: []
+        });
+      });
+  };
+
+  export const getReceiveMsg = () => (dispatch) => {
+    dispatch({ type: LOADING_DATA });
+    axios
+      .get('/message')
+      .then((res) => {
+        dispatch({
+          type: SET_MESSAGES,
+          payload: res.data
+        });
+      })
+      .catch((err) => {
+        dispatch({
+          type: SET_MESSAGES,
+          payload: []
+        });
+      });
+  };
+
+
+  export const getSentMsg = () => (dispatch) => {
+    dispatch({ type: LOADING_DATA });
+    axios
+      .get('/sent-message')
+      .then((res) => {
+        dispatch({
+          type: SET_SMESSAGES,
+          payload: res.data
+        });
+      })
+      .catch((err) => {
+        dispatch({
+          type: SET_SMESSAGES,
+          payload: []
+        });
+      });
+  };
+
+  
+  export const getOLikes = () => (dispatch) => {
+    dispatch({ type: LOADING_DATA });
+    axios
+      .get('/like')
+      .then((res) => {
+        dispatch({
+          type: SET_OLIKES,
+          payload: res.data
+        });
+      })
+      .catch((err) => {
+        dispatch({
+          type: SET_OLIKES,
           payload: []
         });
       });
@@ -164,6 +224,34 @@ import {
       }); 
   };
 
+  export const sendMessage = (newMsg, recipient) => (dispatch) => {
+    
+    dispatch({ type: LOADING_UI });
+    
+   const optionAX = {
+      url: `/message/${recipient}`,
+      method: 'POST',
+      data: newMsg
+  };
+    axios(optionAX)
+      .then((res) => {
+        dispatch({
+          type: POST_MESSAGE,
+          payload: res.data,
+          
+        });
+        dispatch({ type: CLEAR_ERRORS });
+        //dispatch(clearErrors());
+      })
+      .catch((err) => {
+        dispatch({
+          type: SET_ERRORS,
+          payload: err.response.data
+        });
+      }); 
+  };
+
+
   // Like a profile
   export const likeProfile = (profileId) => (dispatch) => {
     axios
@@ -213,30 +301,20 @@ import {
       })
       .catch((err) => console.log(err));
   };
-  // Submit a comment
-  /*
-  export const submitComment = (screamId, commentData) => (dispatch) => {
-    axios
-      .post(`/scream/${screamId}/comment`, commentData)
-      .then((res) => {
-        dispatch({
-          type: SUBMIT_COMMENT,
-          payload: res.data
-        });
-        dispatch(clearErrors());
-      })
-      .catch((err) => {
-        dispatch({
-          type: SET_ERRORS,
-          payload: err.response.data
-        });
-      });
-  }; */
   export const deleteProfile = (profileId) => (dispatch) => {
     axios
       .delete(`/profile/${profileId}`)
       .then(() => {
         dispatch({ type: DELETE_PROFILE, payload: profileId });
+      })
+      .catch((err) => console.log(err));
+  };
+
+  export const deleteChat = (chatId) => (dispatch) => {
+    axios
+      .delete(`/chat/${chatId}`)
+      .then(() => {
+        dispatch({ type: DELETE_CHAT, payload: chatId });
       })
       .catch((err) => console.log(err));
   };

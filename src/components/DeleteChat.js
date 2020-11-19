@@ -8,13 +8,13 @@ import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
-import DeleteOutline from '@material-ui/icons/DeleteOutline';
+import DeleteRoundedIcon from '@material-ui/icons/DeleteRounded';
 import { IconButton } from '@material-ui/core';
 //https://material-ui.com/components/tooltips/
 import Tooltip from '@material-ui/core/Tooltip';
 
 import { connect } from 'react-redux';
-import { deleteProfile } from '../../redux/actions/dataActions';
+import { deleteChat } from '../redux/actions/dataActions';
 
 const styles = {
   deleteButton: {
@@ -24,7 +24,7 @@ const styles = {
   }
 };
 
-class DeleteProfile extends Component {
+class DeleteChat extends Component {
   state = {
     open: false
   };
@@ -34,8 +34,8 @@ class DeleteProfile extends Component {
   handleClose = () => {
     this.setState({ open: false });
   };
-  deleteScream = () => {
-    this.props.deleteProfle(this.props.profileId);
+  deleteChat = () => {
+    this.props.deleteChat(this.props.chatId);
     this.setState({ open: false });
   };
   render() {
@@ -43,9 +43,9 @@ class DeleteProfile extends Component {
 
     return (
       <Fragment>
-         <Tooltip title="Delete the profile" placement="top">
+         <Tooltip title="Delete the chat" placement="top">
                 <IconButton onClick={this.handleOpen} className={classes.deleteButton}>
-                <DeleteOutline color="secondary" />
+                <DeleteRoundedIcon color="secondary" />
                 </IconButton>
         </Tooltip> 
         
@@ -55,13 +55,13 @@ class DeleteProfile extends Component {
           fullWidth
           maxWidth="sm">
           <DialogTitle>
-            Are you sure you want to delete this Profile?
+            Want to delete? After deletion, you cannot recover this chat.
           </DialogTitle>
           <DialogActions>
             <Button onClick={this.handleClose} color="primary">
               Cancel
             </Button>
-            <Button onClick={this.deleteProfile} color="secondary">
+            <Button onClick={this.deleteChat} color="secondary">
               Delete
             </Button>
           </DialogActions>
@@ -71,13 +71,10 @@ class DeleteProfile extends Component {
   }
 }
 
-DeleteProfile.propTypes = {
-  deleteProfile: PropTypes.func.isRequired,
+DeleteChat.propTypes = {
+  deleteChat: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
-  profileId: PropTypes.string.isRequired
+  chatId: PropTypes.string.isRequired
 };
 
-export default connect(
-  null,
-  { deleteProfile }
-)(withStyles(styles)(DeleteProfile));
+export default connect(null,{ deleteChat })(withStyles(styles)(DeleteChat));

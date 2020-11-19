@@ -19,7 +19,7 @@ import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
 import MaybePage from './pages/MaybePage';
-//import MatchPage from './pages/MatchPage';
+import MatchPage from './pages/MatchPage';
 import AccountPage from './pages/AccountPage';
 import Member from './pages/Member';
 
@@ -93,6 +93,7 @@ class App extends Component {
                     <AuthRoute exact path="/login" component={LoginPage}  />
                     <AuthRoute exact path="/signup" component={SignupPage} />
                     <Route exact path="/maybe" component={MaybePage} />
+                    <Route exact path="/match" component={MatchPage} />
                     <Route exact path="/account" component={AccountPage}/>
                     <Route exact path="/users/:handle" component={Member}/>
                     {/*<Route component={NotFoundPage} />*/}

@@ -8,7 +8,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 //import CardActions from '@material-ui/core/CardActions';
 import Typography from '@material-ui/core/Typography';
-
+import PersonPinIcon from '@material-ui/icons/PersonPin';
 //change the date format, https://www.npmjs.com/package/dayjs
 //npm install --save dayjs
 import dayjs from 'dayjs';
@@ -42,6 +42,9 @@ const styles = {
     deleteButton: {
         left: '90%',
         top: '10%'
+    },
+    locicon: {
+        bottom: '0.2%'
     }
 };
 
@@ -60,12 +63,12 @@ class Members extends Component {
         this.props.cancelLike(this.props.member.userName);
     }
     render() {
-        const { classes, member: { userName, intro, userImage, name, createdAt, likeCount },
+        const { classes, member: { userName, intro, userImage, name, createdAt, location, value, interest, likeCount },
                                   user: { authenticated,}
                                   //credentials: { handle } //check this
                                   }= this.props;
 
-                                  const likeButton = !authenticated ? (
+        const likeButton = !authenticated ? (
                                     <Tooltip title="Like" placement="top">
                                             <IconButton  className={classes.button}>
                                                 <Link to="/login">
@@ -103,16 +106,25 @@ class Members extends Component {
           />
             <CardContent className={classes.content}>
                 <Typography 
-                    variant="h5" 
-                    component={Link} 
-                    to={`/users/${userName}`} 
+                    variant="h5"
+                    color="secondary" 
                    >
                     {userName}
                 </Typography>
                {/* {deleteButton} */}
-                <Typography variant="body2" color="textSecondary">{dayjs(createdAt).format('YYYY-MM-DD')} </Typography>
-                <Typography variant="body1">{name}</Typography>
-                <Typography variant="body1">{intro}</Typography>
+                <Typography variant="body2" color="textSecondary">Joined: {dayjs(createdAt).format('MMMM D, YYYY h:mm A')} </Typography>
+                <Typography variant="body1">Name: {name}</Typography>
+                <Typography variant="body1">Introduction: {intro}</Typography>
+                <Typography variant="body1">Interest: {interest}</Typography>
+                <Typography variant="body1">Value: {value}</Typography>
+                
+                <Tooltip title="Location" placement="bottom">
+                        <IconButton  className={classes.locicon}>
+                            <PersonPinIcon color="primary" /> 
+                        </IconButton>
+                </Tooltip>
+                <span>{location}</span>
+               
                 {likeButton}
                 <span>{likeCount} Likes</span>
                 

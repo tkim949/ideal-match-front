@@ -53,6 +53,10 @@ class HomePage extends Component {
         this.props.getMembers();
     }
 
+   //getMembers =() => {
+   //     this.props.getMembers();
+    //}
+
     handleLogout = () => {
         this.props.logoutUser();
     }
@@ -87,10 +91,10 @@ class HomePage extends Component {
         */
         return (
             <Grid container spacing={4}>
-                <Grid item sm={10} xs={12}>
+                <Grid item sm={9} xs={12}>
                     {recentProf}
                 </Grid>
-                <Grid item sm={2} xs={12}>
+                <Grid item sm={3} xs={12}>
                    
                     <InOrOut />
                </Grid>
@@ -103,7 +107,7 @@ HomePage.propTypes = {
     getMembers: PropTypes.func.isRequired, //
     data: PropTypes.object.isRequired,
     user: PropTypes.object.isRequired,
-    authenticated: PropTypes.bool.isRequired
+    //authenticated: PropTypes.bool.isRequired
 }
 
 const mapStateToProps = (state) => {

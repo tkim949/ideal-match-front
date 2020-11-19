@@ -38,6 +38,7 @@ const styles = {
 
 class EditDetails extends Component {
     state = {
+        name:'',
         intro: '',
         interest: '',
         value: '',
@@ -46,6 +47,7 @@ class EditDetails extends Component {
     };
     mapUserDetailsToState = (credentials) => {
         this.setState({
+            name: credentials.name ? credentials.name: '',
             intro: credentials.intro ? credentials.intro: '',
             interest: credentials.interest ? credentials.interest: '',
             value: credentials.value ? credentials.value: '',
@@ -78,6 +80,7 @@ class EditDetails extends Component {
       };
     handleSubmit = () => {
         const userDetails = {
+          name: this.state.name,
           intro: this.state.intro,
           interest: this.state.interest,
           value: this.state.value,
@@ -92,7 +95,7 @@ class EditDetails extends Component {
         const { classes } = this.props;
         return (
            <Fragment>
-               <Tooltip title="Edit details" placement="top">
+               <Tooltip title="Edit profile" placement="top">
                     <IconButton onClick={this.handleOpen} className={classes.button}>
                         <EditIcon color="primary"/>
                     </IconButton>
@@ -106,8 +109,18 @@ class EditDetails extends Component {
                     <DialogContent>
                         <form>
                         <TextField
+                            name="name"
+                            type="text"
+                            label="Name"
+                            placeholder="Your first and last name"
+                            className={classes.textField}
+                            value={this.state.name}
+                            onChange={this.handleChange}
+                            fullWidth
+                        />
+                        <TextField
                             name="intro"
-                            tpye="text"
+                            type="text"
                             label="Introduction"
                             multiline
                             rows="3"
@@ -119,7 +132,7 @@ class EditDetails extends Component {
                         />
                         <TextField
                             name="interest"
-                            tpye="text"
+                            type="text"
                             label="Interest"
                             placeholder="What you most interested in"
                             className={classes.textField}
@@ -129,7 +142,7 @@ class EditDetails extends Component {
                         />
                         <TextField
                             name="value"
-                            tpye="text"
+                            type="text"
                             label="Value"
                             placeholder="What you think is most important in your life"
                             className={classes.textField}
@@ -139,7 +152,7 @@ class EditDetails extends Component {
                         />
                         <TextField
                             name="location"
-                            tpye="text"
+                            type="text"
                             label="Location"
                             placeholder="Where you live"
                             className={classes.textField}

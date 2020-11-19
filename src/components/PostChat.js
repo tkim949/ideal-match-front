@@ -20,24 +20,28 @@ import { postChat, clearErrors } from '../redux/actions/dataActions';
 //for image update
 //icon//https://material-ui.com/components/material-icons/
 //import { IconButton } from '@material-ui/core';
-import Paper from '@material-ui/core/Paper';
+//import Paper from '@material-ui/core/Paper';
+import Card from '@material-ui/core/Card';
 
 
 const styles = {
+    paper:{
+        padding: 10
+    },
+    textField: {
+         padding: 10
+    },
   
   submitButton: {
     position: 'relative',
     float: 'right',
-    marginTop: 10
+    marginTop: 10,
+    marginBottom: 10
   },
-  progressSpinner: {
+  progressShow: {
     position: 'absolute'
   },
-  closeButton: {
-    position: 'absolute',
-    left: '91%',
-    top: '6%'
-  }
+ 
 };
 
 class PostChat extends Component {
@@ -46,7 +50,20 @@ class PostChat extends Component {
     body: '',
     errors: {}
   };
+
   /*
+  componentDidUpdate(prevProps) {
+    //console.log(prevProps.auth, this.props.auth, this.props.history);
+    if (prevProps.authenticated !== this.props.authenticated) {
+      this.props.history.push("/dashboard");
+    }
+    //console.log(this.props.history);
+    if (prevProps.errors !== this.props.errors) { // <-- Only update error state if value different
+      this.setState({
+        errors: this.props.errors,
+      });
+    }
+  }*/
   componentWillReceiveProps(nextProps) {
     if (nextProps.UI.errors) {
       this.setState({
@@ -56,7 +73,8 @@ class PostChat extends Component {
     if (!nextProps.UI.errors && !nextProps.UI.loading) {
       this.setState({ body: '', open: false, errors: {} });
     }
-  }*/
+  }
+  
   /*
   handleOpen = () => {
     this.setState({ open: true });
@@ -71,6 +89,7 @@ class PostChat extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
     this.props.postChat({ body: this.state.body });
+    //this.setState({ body: '', errors: {}}); //still the message doesnot go away after posting!
   };
   render() {
     const { errors } = this.state;
@@ -80,16 +99,15 @@ class PostChat extends Component {
     } = this.props;
 
     return (
-        <Paper>
+        <Card className={classes.paper}>
             <form onSubmit={this.handleSubmit}>
-                <br/>
                 <br/>
               <TextField
                 name="body"
                 type="text"
                 label="Chat"
                 multiline
-                rows="7"
+                rows="5"
                 placeholder="Post your message"
                 error={errors.body ? true : false}
                 helperText={errors.body}
@@ -107,13 +125,13 @@ class PostChat extends Component {
                 Submit
                 {loading && (
                   <CircularProgress
-                    size={30}
-                    className={classes.progressSpinner}
+                    size={25}
+                    className={classes.progressShow}
                   />
                 )}
               </Button>
             </form>
-        </Paper>
+        </Card>
 
     );
     /*

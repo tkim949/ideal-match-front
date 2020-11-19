@@ -7,9 +7,9 @@ import { Link } from 'react-router-dom';
 //show data
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
-import LinkToData from '@material-ui/core/Link';
+//import LinkToData from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
-import LocationOnIcon from '@material-ui/icons/LocationOn';
+import PersonPinIcon from '@material-ui/icons/PersonPin';
 import { IconButton } from '@material-ui/core';
 //https://material-ui.com/components/tooltips/
 import Tooltip from '@material-ui/core/Tooltip';
@@ -17,6 +17,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 //icon//https://material-ui.com/components/material-icons/
 //import EditIcon from '@material-ui/icons/Edit';
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
+
 
 //for edit the exist contents
 import EditDetails from './EditDetails';
@@ -26,14 +27,15 @@ import { connect } from 'react-redux';
 import { logoutUser, uploadImage } from '../redux/actions/userActions'
 //import { KeyboardReturn } from '@material-ui/icons';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-
+//import { getReceiveMsg } from '../redux/actions/dataActions';
+//import ShowMessage from './ShowMessage';
 
 const styles = {
 
       paper: { padding: 20,
         //height: "600px"
       },
-      detail: {
+      profile: {
         '& .image-wrapper': {
           textAlign: 'center',
           position: 'relative',
@@ -47,8 +49,8 @@ const styles = {
            width: 200,
            height: 200,
            objectFit: 'cover',
-           maxWidth: '50%',
-           borderRadius: '50%'
+           maxWidth: '90%',
+           borderRadius: '90%'
            //margin: '10px auto 10px auto',
         //height: '30%',
         //width: '30%'
@@ -93,6 +95,11 @@ Solution: https://stackoverflow.com/questions/60903335/warning-finddomnode-is-de
 */
 
 class UserProfile extends Component {
+
+
+  //componentDidMount() {
+  //  this.props.getReceiveMsg();}
+
     handleImageChange = (event) => {
         const image = event.target.files[0];
         //send the image to the server
@@ -111,14 +118,22 @@ class UserProfile extends Component {
     }
     //get '/user', which get data from 'profiles'
     render() {
-        const { classes, user: { credentials: { userName, userImage, intro, interest, value, location },
-            authenticated,
-            loading,
-         }
-        } = this.props;
+        //const { messages, loading } = this.props.data;
+        const { classes, 
+                user: { credentials: { name, userName, userImage, intro, interest, value, location, email },
+                        authenticated,
+                         loading,
+                      }
+              } = this.props;
+       
+       //let recentMsg = !loading ? ( messages ? ( messages && messages.map((message, index) => (
+        // <ShowMessage key={index} message={message}/> ))):(<p>No message for you</p>)  ) : (<p>Loading...</p>);
+
         let detailShow = !loading ? (authenticated ? 
-                                     ( <Paper className={classes.paper}>
-                                         <div className={classes.detail}>
+                                     (
+                                       <div>
+                                      <Paper className={classes.paper}>
+                                         <div className={classes.profile}>
                                              <div className="image-wrapper">
                                                  <img src={userImage} alt="profileImage" className="profile-image"/>
                                                  <input type="file" id="imageInput" hidden="hidden" onChange={this.handleImageChange}/>
@@ -130,8 +145,11 @@ class UserProfile extends Component {
                                              </div>
                                              <hr/>
                                              <div className="profile-body">
-                                            <Typography variant="body2">{userName}</Typography>
-                                            
+                                            <Typography variant="body1" color="secondary">{userName}</Typography>
+                                            <Typography variant="body1" color="secondary">{email}</Typography>
+                                             <hr/>
+                                                {name && <Typography variant="body2">{name}</Typography>}
+                                                <hr/>
                                                 {intro && <Typography variant="body2">{intro}</Typography>}
                                                  <hr/>
                                                  {interest && <Typography variant="body2">Interest: {interest}</Typography>}
@@ -139,16 +157,11 @@ class UserProfile extends Component {
                                                  {value && <Typography variant="body2">Value: {value}</Typography>}
                                                  <hr/>
 
-                                                 <LinkToData component={Link} to={`users/${userName}`} 
-                                                    color="primary" variant="h5">
-                                                        @{userName}
+                                                 
 
-                                                    </LinkToData>
-                                                
-                                                
                                                  {location && (
                                                      <Fragment>
-                                                        <LocationOnIcon color="primary" /> <span>{location}</span>
+                                                        <PersonPinIcon color="primary" /> <span>{location}</span>
                                                      </Fragment>
                                                  )}
   
@@ -159,10 +172,15 @@ class UserProfile extends Component {
                                                  </IconButton>
                                              </Tooltip>
                                              <EditDetails />
+
                                          </div>
+                                          
 
                                      </Paper>
-
+                                    
+                                      
+                                     </div>
+                                     
                                      ) : (
                                          <Paper className={classes.paper}>
                                              <Typography variant="body2" align="center">
@@ -204,13 +222,21 @@ const mapActionsToProps = { logoutUser, uploadImage };
 
 
 UserProfile.propTypes = {
+        //getReceiveMsg: PropTypes.func.isRequired, 
         logoutUser: PropTypes.func.isRequired,
         uploadImage: PropTypes.func.isRequired,
         user: PropTypes.object.isRequired,
-        classes: PropTypes.object.isRequired 
+        classes: PropTypes.object.isRequired,
+     
 }
 
 export default connect(mapStateToProps, mapActionsToProps)(withStyles(styles)(UserProfile))
 
 
+/*
+<LinkToData component={Link} to={`users/${userName}`} 
+                                                    color="primary" variant="h5">
+                                                        @{userName}
 
+                                                    </LinkToData>
+*/

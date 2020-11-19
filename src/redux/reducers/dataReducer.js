@@ -1,19 +1,27 @@
 
 import {
     SET_PROFILES,
-    SET_MEMBERS,
     LIKE_PROFILE,
     UNLIKE_PROFILE,
-    LIKE_MEMBER,
-    UNLIKE_MEMBER,
-    LOADING_DATA,
     DELETE_PROFILE,
     POST_PROFILE,
     SET_PROFILE,
+    SET_MEMBERS,
     SET_MEMBER,
+    LIKE_MEMBER,
+    UNLIKE_MEMBER,
+    LOADING_DATA,
     SET_CHATS,
     SET_CHAT,
     POST_CHAT,
+    DELETE_CHAT,
+    SET_OLIKES,
+    SET_OLIKE,
+    SET_MESSAGES,
+    SET_MESSAGE,
+    POST_MESSAGE,
+    SET_SMESSAGES,
+    SET_SMESSAGE,
     //SUBMIT_COMMENT
   } from '../types';
   
@@ -24,6 +32,12 @@ import {
     member: {},
     chats: [],
     chat: {},
+    oLikes:[],
+    oLike: {},
+    messages: [],
+    message: {},
+    smessages: [],
+    smessage: {},
     loading: false
   };
   
@@ -46,12 +60,30 @@ import {
           chats: action.payload,
           loading: false
         };
+        case SET_MESSAGES:
+          return {
+            ...state,
+            messages: action.payload,
+            loading: false
+        };
+        case SET_SMESSAGES:
+          return {
+            ...state,
+            smessages: action.payload,
+            loading: false
+        };
         case SET_MEMBERS:
           return {
             ...state,
           members: action.payload,
           loading: false
           };
+        case SET_OLIKES:
+          return {
+            ...state,
+          oLikes: action.payload,
+          loading: false
+          };  
         case SET_PROFILE:
           return {
             ...state,
@@ -66,6 +98,21 @@ import {
           return {
             ...state,
             member: action.payload
+          };
+        case SET_MESSAGE:
+            return {
+              ...state,
+              message: action.payload
+            };
+        case SET_SMESSAGE:
+              return {
+                ...state,
+                smessage: action.payload
+              };
+        case SET_OLIKE:
+          return {
+            ...state,
+            oLike: action.payload
           };
         case LIKE_PROFILE:
         case UNLIKE_PROFILE:
@@ -99,24 +146,29 @@ import {
         return {
           ...state
         };
+      case DELETE_CHAT:
+          let indexC = state.chats.findIndex(
+            (chat) => chat.chatId === action.payload
+          );
+          state.chats.splice(indexC , 1); //get rid of one from the first one
+          return {
+            ...state
+          };
       case POST_PROFILE:
         return {
           ...state,
           profiles: [action.payload, ...state.profiles]
         };
-        case POST_CHAT:
+      case POST_CHAT:
           return {
             ...state,
             chats: [action.payload, ...state.chats]
           };
-     /* case SUBMIT_COMMENT:
-        return {
-          ...state,
-          scream: {
-            ...state.scream,
-            comments: [action.payload, ...state.scream.comments]
-          }
-        }; */
+      case POST_MESSAGE:
+            return {
+              ...state,
+              messages: [action.payload, ...state.messages]
+            };
       default:
         return state;
     }

@@ -73,13 +73,27 @@ class LoginPage extends Component {
             this.setState({ errors: nextProps.UI.errors });
         }
     }*/
+    /*
     componentDidUpdate(prevProps) {
         if (prevProps.UI.errors !== this.props.UI.errors) { // <-- Only update error state if value different
             this.setState({
               errors: this.props.UI.errors,
             });
           }
-    }
+    }*/
+    componentDidUpdate(prevProps) {
+        //console.log(prevProps.auth, this.props.auth, this.props.history);
+        if (prevProps.authenticated !== this.props.authenticated) {
+          this.props.history.push("/dashboard");
+        }
+      
+        console.log(this.props.history);
+        if (prevProps.errors !== this.props.errors) { // <-- Only update error state if value different
+          this.setState({
+            errors: this.props.errors,
+          });
+        }
+      }
 
     handleSubmit = (event) => {
         event.preventDefault(); //

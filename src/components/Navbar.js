@@ -19,7 +19,8 @@ import HomeIcon from '@material-ui/icons/HomeSharp';
 import Tooltip from '@material-ui/core/Tooltip';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import PeopleIcon from '@material-ui/icons/People';
-import SentimentSatisfiedAltIcon from '@material-ui/icons/SentimentSatisfiedAlt';
+//import SentimentSatisfiedAltIcon from '@material-ui/icons/SentimentSatisfiedAlt';
+import EmailIcon from '@material-ui/icons/Email';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 /*
@@ -61,9 +62,16 @@ class Navbar extends Component {
                             </Tooltip>
                             </Link>
                             <Link to="/maybe">
-                            <Tooltip title="Maybe">
+                            <Tooltip title="Meet people">
                                 <IconButton className="button">
                                     <PeopleIcon />
+                                 </IconButton>
+                            </Tooltip>
+                            </Link>
+                            <Link to="/match"> 
+                            <Tooltip title="Contact match">
+                                <IconButton className="button">
+                                    <EmailIcon />
                                  </IconButton>
                             </Tooltip>
                             </Link>
@@ -91,7 +99,7 @@ class Navbar extends Component {
 
 Navbar.propTypes = {
 
-    authenticated: PropTypes.bool.isRequired,
+    //authenticated: PropTypes.bool.isRequired,
     user: PropTypes.object.isRequired,
     logoutUser: PropTypes.func.isRequired,
     //classes: PropTypes.object.isRequired 

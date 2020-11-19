@@ -31,3 +31,7 @@ const enhancer = composeEnhancers(applyMiddleware(...middleware));
 const store = createStore(reducers, initialState, enhancer);
 */
 export default store;
+
+//persist
+//https://blog.bam.tech/developer-news/redux-persist-how-it-works-and-how-to-change-the-structure-of-your-persisted-store
+//this part is a little too many to learn, so I think I should leave this for later

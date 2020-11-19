@@ -13,12 +13,10 @@ import Typography from '@material-ui/core/Typography';
 //change the date format, https://www.npmjs.com/package/dayjs
 //npm install --save dayjs
 import dayjs from 'dayjs';
-import relativeTime from 'dayjs/plugin/relativeTime';
+
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 //import { deleteChat } from '../redux/actions/dataActions';
-import DeleteChat from './DeleteChat';
-
 
 
 const styles = {
@@ -28,6 +26,7 @@ const styles = {
         display: 'flex',
         marginBottom: 10,
     },
+    
     image: {
         //height: 300,
         minWidth: 200,
@@ -38,28 +37,23 @@ const styles = {
     },
     timeD: {
         left: '90%',
-        top: '10%',
-        color: "textSecondary"
-    }
+        top: '10%'
+    },
+    
 };
 
-class ShowChat extends Component {
+class ShowMessage extends Component {
     
     render() {
-        dayjs.extend(relativeTime);
-        const { classes, chat: {  body,
+     
+        const { classes, message: {  body,
                                   createdAt,  
                                   userHandle, 
-                                  chatId, 
+                                  recipient, 
                                    },
-                        user: { authenticated,
-                               credentials: { userName }}
+                        
                         } = this.props;
-        //let time = dayjs(classes.createdAt);
-        const deleteButton = authenticated && userHandle === userName ? (
-            <DeleteChat chatId={chatId}/>
-        ) : null;
-
+       
         /*
         return (
             <div className={classes.chat}>
@@ -79,38 +73,36 @@ class ShowChat extends Component {
             <Card className={classes.card}>
                
             <CardContent className={classes.content}>
-                <Typography variant="h5" color="secondary" className={classes.username} >
-                     {userHandle}
+                <Typography variant="subtitle2" color="secondary" className={classes.username} >
+                    Sender: {userHandle}    
                 </Typography>
-              
-                {deleteButton}
-                <Typography variant="body1">{body}</Typography>
+                <Typography variant="subtitle1" color="secondary" className={classes.username} >
+                    Recipient: {recipient}
+                </Typography>
+               
                 <div className={classes.timeD} >
-                <Typography variant="body2" align= "left" color="textSecondary">{dayjs(createdAt).fromNow()} </Typography>       
+                <Typography variant="body2"  color="textSecondary">{dayjs(createdAt).format('MMMM D, YYYY h:mm A')} </Typography>       
                 </div>
+                <Typography variant="body1">{body}</Typography>
             </CardContent>
         </Card>
         ) 
     } 
 }
 
-ShowChat.propTypes = {
+ShowMessage.propTypes = {
     
     user: PropTypes.object.isRequired,
-    chat: PropTypes.object.isRequired,
+    message: PropTypes.object.isRequired,
     classes: PropTypes.object.isRequired //styles
 
 }
-
+/*
 const mapStateToProps = (state) => {
     return { user: state.user };
-}
+}*/
 
 
 //export default withStyles(styles)(ShowChat)
-export default connect(mapStateToProps)(withStyles(styles)(ShowChat));
-/*
-<div className={classes.timeD} >
-                <Typography variant="body2"  className={classes.timeD} align= "right" color="textSecondary">{dayjs(createdAt).fromNow()} </Typography>       
-                </div>
-*/
+//export default connect(mapStateToProps)(withStyles(styles)(ShowMessage));
+export default connect(null)(withStyles(styles)(ShowMessage));
