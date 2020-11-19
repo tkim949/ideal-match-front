@@ -21,6 +21,9 @@ const styles = {
     position: 'absolute',
     left: '90%',
     top: '10%'
+  },
+  dialog: {
+      padding: 10
   }
 };
 
@@ -50,6 +53,7 @@ class DeleteChat extends Component {
         </Tooltip> 
         
         <Dialog
+          className={classes.dialog}
           open={this.state.open}
           onClose={this.handleClose}
           fullWidth

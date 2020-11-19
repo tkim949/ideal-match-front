@@ -4,8 +4,8 @@ import {
     SET_AUTHENTICATED,
     SET_UNAUTHENTICATED,
     LOADING_USER,
-    LIKE_PROFILE,
-    UNLIKE_PROFILE,
+    //LIKE_PROFILE,
+    //UNLIKE_PROFILE,
     LIKE_MEMBER,
     UNLIKE_MEMBER,
     //MARK_NOTIFICATIONS_READ
@@ -15,7 +15,7 @@ import {
     authenticated: false,
     loading: false,
     credentials: {},
-    likes: [],
+    //likes: [],
     mLikes: []
     //notifications: []
   };
@@ -36,12 +36,12 @@ import {
           loading: false,
           ...action.payload
         };
-       case LOADING_USER:
+      case LOADING_USER:
         return {
           ...state,
           loading: true
         };
-       case LIKE_PROFILE:
+       /*case LIKE_PROFILE:
         return {
           ...state,
           likes: [
@@ -58,8 +58,8 @@ import {
           likes: state.likes.filter(
             (like) => like.profileId !== action.payload.profileId
           )
-        };
-        case LIKE_MEMBER:
+        };*/
+      case LIKE_MEMBER:
         return {
           ...state,
           mLikes: [
@@ -77,11 +77,6 @@ import {
             (mLike) => mLike.person !== action.payload.userName
           )
         };
-      /*case MARK_NOTIFICATIONS_READ:
-        state.notifications.forEach((not) => (not.read = true));
-        return {
-          ...state
-        }; */
       default:
         return state;
     }

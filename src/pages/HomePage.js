@@ -5,8 +5,6 @@ import { Grid } from '@material-ui/core';
 //npm install --save axios //to fetch the data from firebase
 //import axios from 'axios';
 import Members from '../components/Members';
-//import Profile from '../components/Profile';
-//import Detail from '../components/Detail';
 import InOrOut from '../components/InOrOut';
 import PhotoGallery from '../components/PhotoGal';
 

@@ -11,11 +11,7 @@ import {
   } from '../types';
   import axios from 'axios';
 
-  /*const setAuthorizationHeader = (token) => {
-    const FBIdToken = `Bearer ${token}`;
-    localStorage.setItem('FBIdToken', FBIdToken);
-    axios.defaults.headers.common['Authorization'] = FBIdToken;
-}*/
+ 
 export const getUserData = () => (dispatch) => {
     dispatch({ type: LOADING_USER })
   axios.get('/user')
@@ -30,7 +26,7 @@ export const getUserData = () => (dispatch) => {
 };
 
 
-  export const loginUser = (userData, history) => (dispatch) => {
+export const loginUser = (userData, history) => (dispatch) => {
       dispatch({ type: LOADING_UI });
       const optionAX = {
         url: '/login',
@@ -59,13 +55,13 @@ export const getUserData = () => (dispatch) => {
   };
 
   //delete token, so a user can logout!
-  export const logoutUser = () => (dispatch) => {
+export const logoutUser = () => (dispatch) => {
     localStorage.removeItem('FBToken');
     delete axios.defaults.headers.common['Authorization'];
     dispatch({ type: SET_UNAUTHENTICATED });
   }; 
 
-  export const signupUser = (newUserData, history) => (dispatch) => {
+export const signupUser = (newUserData, history) => (dispatch) => {
     dispatch({ type: LOADING_UI });
     const optionAX = {
         url: '/signup',
@@ -89,7 +85,8 @@ export const getUserData = () => (dispatch) => {
         });
   };
 
-  export const uploadImage = (formData) => (dispatch) => {
+  
+export const uploadImage = (formData) => (dispatch) => {
     dispatch({ type: LOADING_USER });
     axios
       .post('/user/image', formData)
@@ -100,7 +97,7 @@ export const getUserData = () => (dispatch) => {
   };
 
   
-  export const editUserDetails = (profileDetails) => (dispatch) => {
+export const editUserDetails = (profileDetails) => (dispatch) => {
     dispatch({ type: LOADING_USER });
     axios
       .post('/user', profileDetails)
@@ -110,7 +107,7 @@ export const getUserData = () => (dispatch) => {
       .catch((err) => console.log(err));
   };
 
-  export const clearErrorsU = () => (dispatch) => {
+export const clearErrorsU = () => (dispatch) => {
     dispatch({ type: CLEAR_ERRORS });
   }; 
 
@@ -190,20 +187,4 @@ export const getUserData = () => (dispatch) => {
       .catch((err) => console.log(err));
   };
   
-  export const markNotificationsRead = (notificationIds) => (dispatch) => {
-    axios
-      .post('/notifications', notificationIds)
-      .then((res) => {
-        dispatch({
-          type: MARK_NOTIFICATIONS_READ
-        });
-      })
-      .catch((err) => console.log(err));
-  };
-  
-  const setAuthorizationHeader = (token) => {
-    const FBIdToken = `Bearer ${token}`;
-    localStorage.setItem('FBIdToken', FBIdToken);
-    axios.defaults.headers.common['Authorization'] = FBIdToken;
-  };
   */

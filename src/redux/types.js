@@ -13,12 +13,7 @@ export const LOADING_DATA = 'LOADING_DATA';
 export const STOP_LOADING_UI = 'STOP_LOADING_UI';
 // Data reducer types
 
-export const SET_PROFILES = 'SET_PROFILES';
-export const SET_PROFILE = 'SET_PROFILE';
-export const LIKE_PROFILE = 'LIKE_PROFILE';
-export const UNLIKE_PROFILE = 'UNLIKE_PROFILE';
-export const DELETE_PROFILE = 'DELETE_PROFILE';
-export const POST_PROFILE = 'POST_PROFILE';
+
 export const SET_CHATS = 'SET_CHATS';
 export const SET_CHAT = 'SET_CHAT';
 export const DELETE_CHAT = 'DELETE_CHAT';
@@ -31,7 +26,17 @@ export const SET_OLIKE = 'SET_OLIKE';
 export const SET_MESSAGES = 'SET_MESSAGES';
 export const SET_MESSAGE = 'SET_MESSAGE';
 export const POST_MESSAGE = 'POST_MESSAGE';
-export const SET_SMESSAGES = 'SET_SMESSAGES';
-export const SET_SMESSAGE = 'SET_SMESSAGE';
+//export const SET_SMESSAGES = 'SET_SMESSAGES';
+//export const SET_SMESSAGE = 'SET_SMESSAGE';
 export const POST_CHAT = 'POST_CHAT';
-//export const SUBMIT_COMMENT = 'SUBMIT_COMMENT';
+
+/*
+//export const SET_PROFILES = 'SET_PROFILES';
+//export const SET_PROFILE = 'SET_PROFILE';
+//export const LIKE_PROFILE = 'LIKE_PROFILE';
+//export const UNLIKE_PROFILE = 'UNLIKE_PROFILE';
+//export const DELETE_PROFILE = 'DELETE_PROFILE';
+//export const POST_PROFILE = 'POST_PROFILE';
+
+
+*/

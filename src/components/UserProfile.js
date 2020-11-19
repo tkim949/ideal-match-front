@@ -17,8 +17,6 @@ import Tooltip from '@material-ui/core/Tooltip';
 //icon//https://material-ui.com/components/material-icons/
 //import EditIcon from '@material-ui/icons/Edit';
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
-
-
 //for edit the exist contents
 import EditDetails from './EditDetails';
 
@@ -239,4 +237,15 @@ export default connect(mapStateToProps, mapActionsToProps)(withStyles(styles)(Us
                                                         @{userName}
 
                                                     </LinkToData>
+*/
+/* Error: Warning: Failed prop type: Invalid prop `uploadImage` of type `function` supplied to `Detail`, expected `object`.
+    at Detail (http://localhost:3000/static/js/main.chunk.js:530:5)
+Solution:???
+*/
+
+/* Error:index.js:1 Warning: findDOMNode is deprecated in StrictMode. 
+findDOMNode was passed an instance of Transition which is inside StrictMode. 
+Instead, add a ref directly to the element you want to reference. 
+Learn more about using refs safely here: https://reactjs.org/link/strict-mode-find-node
+Solution: https://stackoverflow.com/questions/60903335/warning-finddomnode-is-deprecated-in-strictmode-finddomnode-was-passed-an-inst
 */

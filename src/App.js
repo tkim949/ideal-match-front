@@ -21,7 +21,7 @@ import SignupPage from './pages/SignupPage';
 import MaybePage from './pages/MaybePage';
 import MatchPage from './pages/MatchPage';
 import AccountPage from './pages/AccountPage';
-import Member from './pages/Member';
+import NotFoundPage from './pages/NotFoundPage';
 
 //[redux] ---> state, event, actions, dispatcher, store, reducer, state
 //npm install --save redux react-redux redux-thunk
@@ -33,7 +33,7 @@ import { SET_AUTHENTICATED } from './redux/types';
 import { logoutUser, getUserData } from './redux/actions/userActions';
 
 import axios from 'axios';
-
+// "proxy": "https://us-central1-i-match-7689e.cloudfunctions.net/api",
 axios.defaults.baseURL="https://us-central1-i-match-7689e.cloudfunctions.net/api";
 //this fixed the proxy problems!!!
 // https://stackoverflow.com/questions/47824521/create-react-app-doesnt-work-with-proxy/52797226
@@ -95,8 +95,7 @@ class App extends Component {
                     <Route exact path="/maybe" component={MaybePage} />
                     <Route exact path="/match" component={MatchPage} />
                     <Route exact path="/account" component={AccountPage}/>
-                    <Route exact path="/users/:handle" component={Member}/>
-                    {/*<Route component={NotFoundPage} />*/}
+                    <Route component={NotFoundPage}/>
                   </Switch>
                 </div>
               </Router>
@@ -109,3 +108,8 @@ class App extends Component {
 }
 //<AuthRoute exact path="/login" component={LoginPage}  authenticated={authenticated}/>
 export default App;
+/*
+<Route exact path="/users/:handle" component={Member}/>
+                     />
+                    import Member from './pages/Member';
+*/

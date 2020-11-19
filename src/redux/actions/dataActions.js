@@ -1,19 +1,19 @@
 
 import {
     LOADING_DATA,
-    SET_PROFILES,
+   /* SET_PROFILES,
     SET_PROFILE,
     LIKE_PROFILE,
     UNLIKE_PROFILE,
     DELETE_PROFILE,
-    POST_PROFILE,
+    POST_PROFILE,*/
     SET_MEMBERS,
     LIKE_MEMBER,
     UNLIKE_MEMBER,
     SET_ERRORS,
     CLEAR_ERRORS,
     LOADING_UI,
-    STOP_LOADING_UI,
+    //STOP_LOADING_UI,
     SET_CHATS,
     //SET_CHAT,
     POST_CHAT,
@@ -21,12 +21,13 @@ import {
     SET_OLIKES,
     SET_MESSAGES,
     POST_MESSAGE,
-    SET_SMESSAGES,
+    //SET_SMESSAGES,
 
   } from '../types';
   import axios from 'axios';
   
   // Get all PROFILEs
+  /*
   export const getProfiles = () => (dispatch) => {
     dispatch({ type: LOADING_DATA });
     axios
@@ -43,7 +44,7 @@ import {
           payload: []
         });
       });
-  };
+  };*/
   //get all users
   export const getMembers = () => (dispatch) => {
     dispatch({ type: LOADING_DATA });
@@ -99,7 +100,7 @@ import {
       });
   };
 
-
+/*
   export const getSentMsg = () => (dispatch) => {
     dispatch({ type: LOADING_DATA });
     axios
@@ -117,7 +118,7 @@ import {
         });
       });
   };
-
+*/
   
   export const getOLikes = () => (dispatch) => {
     dispatch({ type: LOADING_DATA });
@@ -136,7 +137,7 @@ import {
         });
       });
   };
-
+/*
   export const getProfile = (profileId) => (dispatch) => {
     dispatch({ type: LOADING_UI });
     axios
@@ -150,6 +151,7 @@ import {
       })
       .catch((err) => console.log(err));
   };
+  */
   // Post a profile
   //https://stackoverflow.com/questions/51379356/axios-post-request-not-working
   /* const url = "https://us-central1-i-match-7689e.cloudfunctions.net/api/profile"
@@ -169,6 +171,7 @@ import {
       //headers: { 'content-type': 'application/x-www-form-urlencoded' },
       //data: newProfile,  
     */
+  /*
   export const postProfile = (newProfile) => (dispatch) => {
     
     dispatch({ type: LOADING_UI });
@@ -195,7 +198,7 @@ import {
         });
       });
      
-  };
+  };*/
 
   export const postChat = (newPost) => (dispatch) => {
     
@@ -251,7 +254,7 @@ import {
       }); 
   };
 
-
+/*
   // Like a profile
   export const likeProfile = (profileId) => (dispatch) => {
     axios
@@ -263,7 +266,7 @@ import {
         });
       })
       .catch((err) => console.log(err));
-  };
+  };*/
 
   export const likeMember = (userName) => (dispatch) => {
     axios
@@ -276,6 +279,7 @@ import {
       })
       .catch((err) => console.log(err));
   };
+  /*
   // Unlike a profile
   export const unlikeProfile = (profileId) => (dispatch) => {
     axios
@@ -288,8 +292,8 @@ import {
       })
       .catch((err) => console.log(err));
   };
-
-  //cancle like a member
+ */
+  //cancel like a member
   export const cancelLike = (userName) => (dispatch) => {
     axios
       .delete(`/user/${userName}/like`)
@@ -301,6 +305,7 @@ import {
       })
       .catch((err) => console.log(err));
   };
+  /*
   export const deleteProfile = (profileId) => (dispatch) => {
     axios
       .delete(`/profile/${profileId}`)
@@ -308,7 +313,7 @@ import {
         dispatch({ type: DELETE_PROFILE, payload: profileId });
       })
       .catch((err) => console.log(err));
-  };
+  }; */
 
   export const deleteChat = (chatId) => (dispatch) => {
     axios
@@ -318,7 +323,8 @@ import {
       })
       .catch((err) => console.log(err));
   };
-  //####handle
+  //####handle //thought to use this one for an individual page but not this time
+  /*
   export const getMemberData = (userHandle) => (dispatch) => {
     dispatch({ type: LOADING_DATA });
     axios
@@ -335,7 +341,7 @@ import {
           payload: null
         });
       });
-  };
+  };*/
   
   export const clearErrors = () => (dispatch) => {
     dispatch({ type: CLEAR_ERRORS });
