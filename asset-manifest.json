@@ -1,0 +1,37 @@
+{
+  "files": {
+    "main.css": "/static/css/main.4cba0357.chunk.css",
+    "main.js": "/static/js/main.c64d4021.chunk.js",
+    "main.js.map": "/static/js/main.c64d4021.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.ae405e8b.js",
+    "runtime-main.js.map": "/static/js/runtime-main.ae405e8b.js.map",
+    "static/js/2.efef419a.chunk.js": "/static/js/2.efef419a.chunk.js",
+    "static/js/2.efef419a.chunk.js.map": "/static/js/2.efef419a.chunk.js.map",
+    "static/js/3.c7734055.chunk.js": "/static/js/3.c7734055.chunk.js",
+    "static/js/3.c7734055.chunk.js.map": "/static/js/3.c7734055.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/main.4cba0357.chunk.css.map": "/static/css/main.4cba0357.chunk.css.map",
+    "static/js/2.efef419a.chunk.js.LICENSE.txt": "/static/js/2.efef419a.chunk.js.LICENSE.txt",
+    "static/media/bunny.7e670922.jpg": "/static/media/bunny.7e670922.jpg",
+    "static/media/couple1.4e48b609.jpg": "/static/media/couple1.4e48b609.jpg",
+    "static/media/couple2.413abbad.jpg": "/static/media/couple2.413abbad.jpg",
+    "static/media/date1.1fba595f.jpg": "/static/media/date1.1fba595f.jpg",
+    "static/media/date2.07d8cefe.jpg": "/static/media/date2.07d8cefe.jpg",
+    "static/media/date4.3a8cf427.jpg": "/static/media/date4.3a8cf427.jpg",
+    "static/media/date5.8c9ad48e.jpg": "/static/media/date5.8c9ad48e.jpg",
+    "static/media/date6.bd59c4ae.jpg": "/static/media/date6.bd59c4ae.jpg",
+    "static/media/ladybugs.4e518d3f.jpg": "/static/media/ladybugs.4e518d3f.jpg",
+    "static/media/moon.c897cc54.jpg": "/static/media/moon.c897cc54.jpg",
+    "static/media/pair1.15488424.jpg": "/static/media/pair1.15488424.jpg",
+    "static/media/pair2.3c90ab1b.jpg": "/static/media/pair2.3c90ab1b.jpg",
+    "static/media/pair3.96d74e47.jpg": "/static/media/pair3.96d74e47.jpg",
+    "static/media/penguins.c4076fee.png": "/static/media/penguins.c4076fee.png",
+    "static/media/people1.50f5ecb2.jpg": "/static/media/people1.50f5ecb2.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.ae405e8b.js",
+    "static/js/2.efef419a.chunk.js",
+    "static/css/main.4cba0357.chunk.css",
+    "static/js/main.c64d4021.chunk.js"
+  ]
+}
