@@ -1,3 +1,13 @@
+
+# For the school project
+https://celebrity-dating-tk-cs467.netlify.app/#/signup
+https://i-match-7689e.web.app/#/signup
+
+# the backend code inside private repo because of the credential code with firebase
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
