@@ -3,7 +3,7 @@
 https://celebrity-dating-tk-cs467.netlify.app/#/signup
 https://i-match-7689e.web.app/#/signup
 
-# the backend code inside private repo because of the credential code with firebase
+the backend code inside private repo because of the credential code with firebase
 
 
 
