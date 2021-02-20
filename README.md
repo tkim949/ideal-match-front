@@ -1,9 +1,9 @@
 
-# For the school project
+# backend code inside private repo because of the credential code with firebase
 https://celebrity-dating-tk-cs467.netlify.app/#/signup
 https://i-match-7689e.web.app/#/signup
 
-the backend code inside private repo because of the credential code with firebase
+*a school project 
 
 
 
