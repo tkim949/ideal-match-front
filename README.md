@@ -1,5 +1,5 @@
 
-# backend code inside private repo because of the credential code with firebase
+# backend code is inside a private repo because of the credential code with firebase
 
 https://celebrity-dating-tk-cs467.netlify.app/#/signup
 
